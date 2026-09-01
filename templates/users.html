@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SolarVision | Manage Users</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            min-height: 100vh;
+
+            background:
+                radial-gradient(circle at 85% 10%,
+                    rgba(255,194,70,0.12),
+                    transparent 25%),
+
+                radial-gradient(circle at 5% 90%,
+                    rgba(32,216,158,0.10),
+                    transparent 25%),
+
+                #061312;
+
+            color: white;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+
+            width: 250px;
+            padding: 28px 20px;
+
+            background: rgba(255,255,255,0.035);
+
+            border-right:
+                1px solid
+                rgba(255,255,255,0.08);
+
+            backdrop-filter: blur(20px);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            padding: 0 10px;
+            margin-bottom: 45px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #a1ffd0,
+                    #20d89e
+                );
+
+            color: #06251b;
+            font-size: 21px;
+        }
+
+        .brand-name {
+            font-weight: 800;
+            letter-spacing: 1px;
+            font-size: 14px;
+        }
+
+        .menu-title {
+            color: #60756f;
+            font-size: 10px;
+            letter-spacing: 2px;
+
+            margin:
+                0 12px 12px;
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .menu a {
+            text-decoration: none;
+
+            color: #8ca19b;
+
+            padding:
+                13px 14px;
+
+            border-radius: 11px;
+
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            font-size: 13px;
+
+            transition: 0.2s;
+        }
+
+        .menu a:hover {
+            color: white;
+
+            background:
+                rgba(32,216,158,0.08);
+        }
+
+        .menu a.active {
+            color: #a1ffd0;
+
+            background:
+                rgba(32,216,158,0.10);
+
+            border:
+                1px solid
+                rgba(32,216,158,0.12);
+        }
+
+        .logout {
+            position: absolute;
+
+            left: 20px;
+            right: 20px;
+            bottom: 25px;
+        }
+
+        .logout a {
+            display: block;
+
+            padding: 12px;
+
+            text-align: center;
+
+            text-decoration: none;
+
+            color: #ff8c8c;
+
+            border-radius: 10px;
+
+            background:
+                rgba(255,80,80,0.06);
+
+            border:
+                1px solid
+                rgba(255,80,80,0.10);
+
+            font-size: 12px;
+        }
+
+        /* MAIN */
+
+        .main {
+            margin-left: 250px;
+            padding: 35px;
+        }
+
+        .topbar {
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items: center;
+
+            margin-bottom: 30px;
+        }
+
+        .heading h1 {
+            font-size: 28px;
+            margin-bottom: 7px;
+        }
+
+        .heading p {
+            color: #718680;
+            font-size: 13px;
+        }
+
+        .back {
+            padding:
+                11px 16px;
+
+            border-radius: 10px;
+
+            text-decoration: none;
+
+            color: #a1ffd0;
+
+            background:
+                rgba(32,216,158,0.07);
+
+            border:
+                1px solid
+                rgba(32,216,158,0.12);
+
+            font-size: 12px;
+        }
+
+        /* SUMMARY */
+
+        .summary {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 18px;
+
+            margin-bottom: 22px;
+        }
+
+        .summary-card {
+            padding: 20px;
+
+            border-radius: 16px;
+
+            background:
+                rgba(255,255,255,0.04);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.07);
+        }
+
+        .summary-icon {
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .summary-title {
+            color: #718680;
+
+            font-size: 10px;
+
+            margin-bottom: 7px;
+        }
+
+        .summary-value {
+            font-size: 24px;
+            font-weight: 800;
+        }
+
+        /* ADD USER */
+
+        .add-panel {
+            padding: 25px;
+
+            border-radius: 18px;
+
+            background:
+                rgba(255,255,255,0.04);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.07);
+
+            margin-bottom: 22px;
+        }
+
+        .panel-title {
+            font-size: 17px;
+            margin-bottom: 20px;
+        }
+
+        .form-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 15px;
+        }
+
+        .form-group label {
+            display: block;
+
+            color: #8ca19b;
+
+            font-size: 10px;
+
+            letter-spacing: 1px;
+
+            margin-bottom: 8px;
+        }
+
+        .form-group input,
+        .form-group select {
+
+            width: 100%;
+
+            height: 45px;
+
+            padding:
+                0 13px;
+
+            border-radius: 10px;
+
+            border:
+                1px solid
+                rgba(255,255,255,0.08);
+
+            background:
+                rgba(255,255,255,0.04);
+
+            color: white;
+
+            outline: none;
+
+            font-size: 12px;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+
+            border-color:
+                #20d89e;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(32,216,158,0.08);
+        }
+
+        .form-group select option {
+            background: #10221f;
+            color: white;
+        }
+
+        .add-button {
+
+            margin-top: 20px;
+
+            height: 45px;
+
+            padding:
+                0 22px;
+
+            border: none;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #a1ffd0,
+                    #20d89e
+                );
+
+            color: #06251b;
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            transition: 0.2s;
+        }
+
+        .add-button:hover {
+
+            transform:
+                translateY(-2px);
+
+            box-shadow:
+                0 10px 25px
+                rgba(32,216,158,0.20);
+        }
+
+        /* USER TABLE */
+
+        .panel {
+
+            padding: 25px;
+
+            border-radius: 18px;
+
+            background:
+                rgba(255,255,255,0.04);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.07);
+        }
+
+        .panel-header {
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items: center;
+
+            margin-bottom: 22px;
+        }
+
+        .panel-header h2 {
+            font-size: 17px;
+        }
+
+        .panel-header span {
+            color: #60756f;
+            font-size: 11px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th {
+            text-align: left;
+
+            padding:
+                14px 12px;
+
+            color: #60756f;
+
+            font-size: 10px;
+
+            letter-spacing: 1px;
+
+            border-bottom:
+                1px solid
+                rgba(255,255,255,0.08);
+        }
+
+        td {
+            padding:
+                17px 12px;
+
+            font-size: 12px;
+
+            color: #b8c9c5;
+
+            border-bottom:
+                1px solid
+                rgba(255,255,255,0.05);
+        }
+
+        tr:hover td {
+            background:
+                rgba(32,216,158,0.025);
+        }
+
+        .user-name {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+        }
+
+        .avatar {
+            width: 36px;
+            height: 36px;
+
+            border-radius: 50%;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #a1ffd0,
+                    #20d89e
+                );
+
+            color: #06251b;
+
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        .name-text strong {
+            display: block;
+
+            color: white;
+
+            font-size: 12px;
+
+            margin-bottom: 3px;
+        }
+
+        .name-text small {
+            color: #60756f;
+            font-size: 9px;
+        }
+
+        .role {
+            display: inline-block;
+
+            padding:
+                6px 10px;
+
+            border-radius: 20px;
+
+            font-size: 9px;
+
+            font-weight: bold;
+        }
+
+        .role-admin {
+            color: #ffe08a;
+
+            background:
+                rgba(255,190,60,0.10);
+        }
+
+        .role-user {
+            color: #a1ffd0;
+
+            background:
+                rgba(32,216,158,0.08);
+        }
+
+        .status {
+            color: #6fffc1;
+            font-size: 10px;
+        }
+
+        .delete-button {
+
+            border: none;
+
+            padding:
+                7px 11px;
+
+            border-radius: 8px;
+
+            background:
+                rgba(255,80,80,0.08);
+
+            color: #ff8c8c;
+
+            font-size: 10px;
+
+            cursor: pointer;
+        }
+
+        .delete-button:hover {
+
+            background:
+                rgba(255,80,80,0.16);
+        }
+
+        .security {
+
+            text-align: center;
+
+            color: #50645f;
+
+            font-size: 10px;
+
+            margin-top: 20px;
+        }
+
+        @media(max-width:1000px) {
+
+            .summary {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media(max-width:700px) {
+
+            .sidebar {
+                position: relative;
+
+                width: 100%;
+
+                height: auto;
+            }
+
+            .logout {
+                position: relative;
+
+                left: auto;
+                right: auto;
+                bottom: auto;
+
+                margin-top: 20px;
+            }
+
+            .main {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .topbar {
+                flex-direction: column;
+
+                align-items:
+                    flex-start;
+
+                gap: 15px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                ☀
+            </div>
+
+            <div class="brand-name">
+                SOLARVISION
+            </div>
+
+        </div>
+
+
+        <div class="menu-title">
+            ADMINISTRATION
+        </div>
+
+
+        <nav class="menu">
+
+            <a href="/admin">
+                🏠
+                <span>Dashboard</span>
+            </a>
+
+
+            <a href="/users"
+               class="active">
+                👥
+                <span>Manage Users</span>
+            </a>
+
+
+            <a href="#">
+                📊
+                <span>Forecasts</span>
+            </a>
+
+
+            <a href="#">
+                ⚡
+                <span>Generation</span>
+            </a>
+
+
+            <a href="#">
+                🔔
+                <span>Alerts</span>
+            </a>
+
+        </nav>
+
+
+        <div class="logout">
+
+            <a href="/logout">
+                🚪 Logout
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+
+        <div class="topbar">
+
+            <div class="heading">
+
+                <h1>
+                    Manage Users
+                </h1>
+
+                <p>
+                    Authentication & Role Management
+                </p>
+
+            </div>
+
+
+            <a href="/admin"
+               class="back">
+
+                ← Dashboard
+
+            </a>
+
+        </div>
+
+
+        <!-- SUMMARY -->
+
+        <div class="summary">
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon">
+                    👥
+                </div>
+
+                <div class="summary-title">
+                    REGISTERED USERS
+                </div>
+
+                <div class="summary-value">
+                    {{ users|length }}
+                </div>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon">
+                    🔐
+                </div>
+
+                <div class="summary-title">
+                    ACCESS CONTROL
+                </div>
+
+                <div class="summary-value">
+                    Active
+                </div>
+
+            </div>
+
+
+            <div class="summary-card">
+
+                <div class="summary-icon">
+                    🛡️
+                </div>
+
+                <div class="summary-title">
+                    SECURITY
+                </div>
+
+                <div class="summary-value">
+                    Enabled
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- ADD USER -->
+
+        <section class="add-panel">
+
+
+            <div class="panel-title">
+                ➕ Add New User
+            </div>
+
+
+            <form method="POST"
+                  action="/add-user">
+
+
+                <div class="form-grid">
+
+
+                    <div class="form-group">
+
+                        <label>
+                            FULL NAME
+                        </label>
+
+                        <input
+                            type="text"
+                            name="full_name"
+                            placeholder="Enter full name"
+                            required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            USERNAME
+                        </label>
+
+                        <input
+                            type="text"
+                            name="username"
+                            placeholder="Enter username"
+                            required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            EMAIL
+                        </label>
+
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="Enter email"
+                            required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            PASSWORD
+                        </label>
+
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="Enter password"
+                            required>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            ROLE
+                        </label>
+
+                        <select name="role"
+                                required>
+
+                            <option value="user">
+                                User
+                            </option>
+
+                            <option value="admin">
+                                Admin
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="add-button">
+
+                    ADD USER →
+
+                </button>
+
+
+            </form>
+
+
+        </section>
+
+
+        <!-- USER TABLE -->
+
+        <section class="panel">
+
+
+            <div class="panel-header">
+
+                <h2>
+                    Registered Users
+                </h2>
+
+                <span>
+                    Secure user directory
+                </span>
+
+            </div>
+
+
+            <div class="table-container">
+
+
+                <table>
+
+
+                    <thead>
+
+                        <tr>
+
+                            <th>USER</th>
+
+                            <th>USERNAME</th>
+
+                            <th>EMAIL</th>
+
+                            <th>ROLE</th>
+
+                            <th>STATUS</th>
+
+                            <th>ACTION</th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+
+                        {% for user in users %}
+
+
+                        <tr>
+
+
+                            <td>
+
+                                <div class="user-name">
+
+
+                                    <div class="avatar">
+
+                                        {{ user["full_name"][0]|upper }}
+
+                                    </div>
+
+
+                                    <div class="name-text">
+
+                                        <strong>
+                                            {{ user["full_name"] }}
+                                        </strong>
+
+                                        <small>
+                                            SolarVision account
+                                        </small>
+
+                                    </div>
+
+
+                                </div>
+
+                            </td>
+
+
+                            <td>
+                                {{ user["username"] }}
+                            </td>
+
+
+                            <td>
+                                {{ user["email"] }}
+                            </td>
+
+
+                            <td>
+
+
+                                {% if user["role"] == "admin" %}
+
+                                    <span class="role role-admin">
+                                        ADMIN
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="role role-user">
+                                        USER
+                                    </span>
+
+                                {% endif %}
+
+
+                            </td>
+
+
+                            <td>
+
+                                <span class="status">
+                                    ● ACTIVE
+                                </span>
+
+                            </td>
+
+
+                            <td>
+
+
+                                {% if user["id"] != session["user_id"] %}
+
+
+                                    <form
+                                        method="POST"
+                                        action="/delete-user/{{ user['id'] }}"
+                                        onsubmit="return confirm('Are you sure you want to delete this user?');"
+                                        style="display:inline;">
+
+                                        <button
+                                            type="submit"
+                                            class="delete-button">
+
+                                            Delete
+
+                                        </button>
+
+                                    </form>
+
+
+                                {% else %}
+
+
+                                    <span
+                                        style="
+                                            color:#60756f;
+                                            font-size:10px;
+                                        ">
+
+                                        Current Account
+
+                                    </span>
+
+
+                                {% endif %}
+
+
+                            </td>
+
+
+                        </tr>
+
+
+                        {% else %}
+
+
+                        <tr>
+
+                            <td
+                                colspan="6"
+                                style="
+                                    text-align:center;
+                                    padding:40px;
+                                    color:#60756f;
+                                ">
+
+                                No users found.
+
+                            </td>
+
+                        </tr>
+
+
+                        {% endfor %}
+
+
+                    </tbody>
+
+
+                </table>
+
+
+            </div>
+
+
+        </section>
+
+
+        <div class="security">
+
+            🔒 Only administrators can manage user accounts
+
+        </div>
+
+
+    </main>
+
+
+</body>
+
+</html>

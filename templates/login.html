@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SolarVision | Login</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
+            background:
+                radial-gradient(circle at 80% 20%, rgba(255,194,70,0.16), transparent 30%),
+                radial-gradient(circle at 10% 90%, rgba(32,216,158,0.13), transparent 30%),
+                #061312;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 25px;
+        }
+
+        .container {
+            width: 1100px;
+            max-width: 100%;
+            min-height: 650px;
+
+            display: grid;
+            grid-template-columns: 1.15fr 0.85fr;
+
+            background: rgba(255,255,255,0.045);
+            border: 1px solid rgba(255,255,255,0.10);
+            border-radius: 28px;
+            overflow: hidden;
+
+            backdrop-filter: blur(25px);
+
+            box-shadow:
+                0 35px 90px rgba(0,0,0,0.55);
+        }
+
+        /* LEFT */
+
+        .left {
+            position: relative;
+            padding: 60px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(32,216,158,0.08),
+                    transparent 65%
+                );
+        }
+
+        .logo {
+            position: absolute;
+            top: 30px;
+            left: 45px;
+
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            font-weight: bold;
+            letter-spacing: 1.5px;
+        }
+
+        .logo-icon {
+            width: 43px;
+            height: 43px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 13px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #9cffc8,
+                    #20d89e
+                );
+
+            color: #06251b;
+            font-size: 22px;
+        }
+
+        .sun {
+            position: absolute;
+
+            top: 80px;
+            right: 70px;
+
+            width: 105px;
+            height: 105px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle,
+                    #fff9c8,
+                    #ffe078 45%,
+                    #ffad2f
+                );
+
+            box-shadow:
+                0 0 35px rgba(255,200,80,0.8),
+                0 0 90px rgba(255,190,60,0.35);
+        }
+
+        .tag {
+            color: #62f0b2;
+
+            font-size: 12px;
+            font-weight: bold;
+            letter-spacing: 3px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 18px;
+        }
+
+        .left h1 {
+            font-size: 50px;
+            line-height: 1.08;
+
+            letter-spacing: -2px;
+
+            margin-bottom: 22px;
+        }
+
+        .left h1 span {
+            background:
+                linear-gradient(
+                    90deg,
+                    #a7ffd2,
+                    #ffe08a
+                );
+
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .description {
+            max-width: 520px;
+
+            color: #a3b8b2;
+
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 12px;
+
+            margin-top: 40px;
+        }
+
+        .feature {
+            padding: 17px;
+
+            border-radius: 14px;
+
+            background:
+                rgba(255,255,255,0.035);
+
+            border:
+                1px solid rgba(255,255,255,0.07);
+        }
+
+        .feature-icon {
+            font-size: 21px;
+            margin-bottom: 10px;
+        }
+
+        .feature strong {
+            display: block;
+
+            font-size: 14px;
+
+            margin-bottom: 5px;
+        }
+
+        .feature small {
+            color: #718680;
+
+            font-size: 10px;
+
+            line-height: 1.4;
+        }
+
+        /* RIGHT */
+
+        .right {
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            padding: 50px;
+
+            background:
+                rgba(0,0,0,0.12);
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 360px;
+        }
+
+        .login-box h2 {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .subtitle {
+            color: #7f9690;
+            font-size: 14px;
+
+            margin-bottom: 30px;
+        }
+
+        .error {
+            padding: 13px;
+
+            margin-bottom: 20px;
+
+            border-radius: 10px;
+
+            background:
+                rgba(255,80,80,0.10);
+
+            border:
+                1px solid rgba(255,80,80,0.20);
+
+            color: #ff8d8d;
+
+            text-align: center;
+
+            font-size: 13px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+
+            margin-bottom: 9px;
+
+            color: #b4c7c2;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            letter-spacing: 1px;
+        }
+
+        .input-box {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+
+            left: 15px;
+            top: 50%;
+
+            transform: translateY(-50%);
+
+            font-size: 16px;
+
+            opacity: 0.65;
+        }
+
+        .input-box input {
+            width: 100%;
+            height: 50px;
+
+            padding:
+                0 15px 0 45px;
+
+            border-radius: 11px;
+
+            border:
+                1px solid rgba(255,255,255,0.10);
+
+            background:
+                rgba(255,255,255,0.045);
+
+            color: white;
+
+            outline: none;
+
+            font-size: 14px;
+        }
+
+        .input-box input:focus {
+            border-color: #20d89e;
+
+            box-shadow:
+                0 0 0 4px rgba(32,216,158,0.08);
+        }
+
+        .input-box input::placeholder {
+            color: #5e756e;
+        }
+
+        .login-button {
+            width: 100%;
+            height: 52px;
+
+            border: none;
+
+            border-radius: 11px;
+
+            margin-top: 5px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #a1ffd0,
+                    #20d89e
+                );
+
+            color: #06251b;
+
+            font-size: 13px;
+
+            font-weight: 800;
+
+            letter-spacing: 0.7px;
+
+            cursor: pointer;
+
+            transition: 0.25s;
+        }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 16px 35px
+                rgba(32,216,158,0.28);
+        }
+
+        .demo {
+            margin-top: 25px;
+
+            padding: 15px;
+
+            border-radius: 12px;
+
+            background:
+                rgba(255,255,255,0.03);
+
+            border:
+                1px solid rgba(255,255,255,0.06);
+        }
+
+        .demo-title {
+            color: #718680;
+
+            font-size: 10px;
+
+            font-weight: bold;
+
+            letter-spacing: 1.5px;
+
+            margin-bottom: 9px;
+        }
+
+        .demo-line {
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-top: 6px;
+
+            font-size: 11px;
+        }
+
+        .demo-line span:first-child {
+            color: #718680;
+        }
+
+        .demo-line span:last-child {
+            color: #a4ffd0;
+        }
+
+        .security {
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            gap: 6px;
+
+            margin-top: 22px;
+
+            color: #61756f;
+
+            font-size: 11px;
+        }
+
+        @media(max-width:850px) {
+
+            body {
+                align-items: flex-start;
+            }
+
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .left {
+                min-height: 500px;
+
+                padding:
+                    45px 35px;
+            }
+
+            .right {
+                padding:
+                    45px 30px;
+            }
+
+            .left h1 {
+                font-size: 38px;
+            }
+
+            .sun {
+                width: 75px;
+                height: 75px;
+
+                top: 70px;
+                right: 35px;
+            }
+        }
+
+        @media(max-width:500px) {
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .left {
+                padding:
+                    40px 25px;
+            }
+
+            .right {
+                padding:
+                    40px 25px;
+            }
+
+            .logo {
+                left: 25px;
+            }
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <div class="container">
+
+
+        <!-- LEFT SIDE -->
+
+        <section class="left">
+
+
+            <div class="logo">
+
+                <div class="logo-icon">
+                    ☀
+                </div>
+
+                <span>
+                    SOLARVISION
+                </span>
+
+            </div>
+
+
+            <div class="sun"></div>
+
+
+            <div>
+
+                <div class="tag">
+                    Intelligent Energy
+                </div>
+
+
+                <h1>
+
+                    Predict the Sun.<br>
+
+                    <span>
+                        Power the Future.
+                    </span>
+
+                </h1>
+
+
+                <p class="description">
+
+                    A smart solar power generation
+                    forecasting platform that transforms
+                    weather and historical generation data
+                    into intelligent energy predictions.
+
+                </p>
+
+
+                <div class="features">
+
+
+                    <div class="feature">
+
+                        <div class="feature-icon">
+                            🤖
+                        </div>
+
+                        <strong>
+                            AI Forecast
+                        </strong>
+
+                        <small>
+                            Intelligent generation prediction
+                        </small>
+
+                    </div>
+
+
+                    <div class="feature">
+
+                        <div class="feature-icon">
+                            📊
+                        </div>
+
+                        <strong>
+                            Analytics
+                        </strong>
+
+                        <small>
+                            Monitor plant performance
+                        </small>
+
+                    </div>
+
+
+                    <div class="feature">
+
+                        <div class="feature-icon">
+                            ⚡
+                        </div>
+
+                        <strong>
+                            Energy
+                        </strong>
+
+                        <small>
+                            Smarter clean energy management
+                        </small>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+        </section>
+
+
+        <!-- RIGHT SIDE -->
+
+        <section class="right">
+
+
+            <div class="login-box">
+
+
+                <h2>
+                    Welcome back
+                </h2>
+
+
+                <p class="subtitle">
+                    Sign in to your energy dashboard
+                </p>
+
+
+                {% if error %}
+
+                <div class="error">
+
+                    ⚠ {{ error }}
+
+                </div>
+
+                {% endif %}
+
+
+                <form method="POST" action="/">
+
+
+                    <div class="form-group">
+
+                        <label>
+                            USERNAME
+                        </label>
+
+
+                        <div class="input-box">
+
+                            <span class="input-icon">
+                                👤
+                            </span>
+
+
+                            <input
+                                type="text"
+                                name="username"
+                                placeholder="Enter your username"
+                                autocomplete="username"
+                                required>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>
+                            PASSWORD
+                        </label>
+
+
+                        <div class="input-box">
+
+                            <span class="input-icon">
+                                🔐
+                            </span>
+
+
+                            <input
+                                type="password"
+                                name="password"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="login-button">
+
+                        SIGN IN TO PLATFORM →
+
+                    </button>
+
+
+                </form>
+
+
+                <div class="demo">
+
+                    <div class="demo-title">
+                        DEMO ACCOUNTS
+                    </div>
+
+
+                    <div class="demo-line">
+
+                        <span>
+                            Admin
+                        </span>
+
+                        <span>
+                            admin / admin123
+                        </span>
+
+                    </div>
+
+
+                    <div class="demo-line">
+
+                        <span>
+                            User
+                        </span>
+
+                        <span>
+                            user / user123
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="security">
+
+                    🔒 Secure platform access
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+    </div>
+
+
+</body>
+
+</html>

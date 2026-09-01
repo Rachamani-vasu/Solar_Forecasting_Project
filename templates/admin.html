@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SolarVision | Admin Dashboard</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+
+            font-family: Arial, Helvetica, sans-serif;
+
+            min-height: 100vh;
+
+            background:
+                radial-gradient(
+                    circle at 85% 10%,
+                    rgba(255, 194, 70, 0.12),
+                    transparent 25%
+                ),
+
+                radial-gradient(
+                    circle at 5% 90%,
+                    rgba(32, 216, 158, 0.10),
+                    transparent 25%
+                ),
+
+                #061312;
+
+            color: white;
+
+        }
+
+
+        /* =========================
+           SIDEBAR
+        ========================== */
+
+        .sidebar {
+
+            position: fixed;
+
+            left: 0;
+            top: 0;
+            bottom: 0;
+
+            width: 250px;
+
+            padding: 28px 20px;
+
+            background:
+                rgba(255,255,255,0.035);
+
+            border-right:
+                1px solid
+                rgba(255,255,255,0.08);
+
+            backdrop-filter:
+                blur(20px);
+
+        }
+
+
+        .brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            padding:
+                0 10px;
+
+            margin-bottom: 45px;
+
+        }
+
+
+        .brand-icon {
+
+            width: 42px;
+            height: 42px;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #a1ffd0,
+                    #20d89e
+                );
+
+            color: #06251b;
+
+            font-size: 21px;
+
+        }
+
+
+        .brand-name {
+
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+            font-size: 14px;
+
+        }
+
+
+        .menu-title {
+
+            color: #60756f;
+
+            font-size: 10px;
+
+            letter-spacing: 2px;
+
+            margin:
+                0 12px 12px;
+
+        }
+
+
+        .menu {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 8px;
+
+        }
+
+
+        .menu a {
+
+            text-decoration: none;
+
+            color: #8ca19b;
+
+            padding:
+                13px 14px;
+
+            border-radius: 11px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            font-size: 13px;
+
+            transition: 0.2s;
+
+        }
+
+
+        .menu a:hover {
+
+            color: white;
+
+            background:
+                rgba(32,216,158,0.08);
+
+        }
+
+
+        .menu a.active {
+
+            color: #a1ffd0;
+
+            background:
+                rgba(32,216,158,0.10);
+
+            border:
+                1px solid
+                rgba(32,216,158,0.12);
+
+        }
+
+
+        .logout {
+
+            position: absolute;
+
+            left: 20px;
+            right: 20px;
+            bottom: 25px;
+
+        }
+
+
+        .logout a {
+
+            text-decoration: none;
+
+            color: #ff8c8c;
+
+            padding: 12px;
+
+            display: block;
+
+            text-align: center;
+
+            border-radius: 10px;
+
+            background:
+                rgba(255,80,80,0.06);
+
+            border:
+                1px solid
+                rgba(255,80,80,0.10);
+
+            font-size: 12px;
+
+        }
+
+
+        /* =========================
+           MAIN
+        ========================== */
+
+        .main {
+
+            margin-left: 250px;
+
+            padding: 35px;
+
+        }
+
+
+        .topbar {
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items: center;
+
+            margin-bottom: 35px;
+
+        }
+
+
+        .welcome h1 {
+
+            font-size: 28px;
+
+            margin-bottom: 7px;
+
+        }
+
+
+        .welcome p {
+
+            color: #718680;
+
+            font-size: 13px;
+
+        }
+
+
+        .profile {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+        }
+
+
+        .avatar {
+
+            width: 42px;
+            height: 42px;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            justify-content: center;
+            align-items: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #a1ffd0,
+                    #20d89e
+                );
+
+            color: #06251b;
+
+            font-weight: bold;
+
+        }
+
+
+        .profile-text strong {
+
+            display: block;
+
+            font-size: 12px;
+
+        }
+
+
+        .profile-text small {
+
+            color: #60756f;
+
+            font-size: 10px;
+
+        }
+
+
+        /* =========================
+           CARDS
+        ========================== */
+
+        .cards {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 18px;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .card {
+
+            padding: 22px;
+
+            border-radius: 16px;
+
+            background:
+                rgba(255,255,255,0.04);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.07);
+
+        }
+
+
+        .card-icon {
+
+            font-size: 22px;
+
+            margin-bottom: 15px;
+
+        }
+
+
+        .card-title {
+
+            color: #718680;
+
+            font-size: 11px;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .card-value {
+
+            font-size: 25px;
+
+            font-weight: 800;
+
+        }
+
+
+        .card-status {
+
+            margin-top: 8px;
+
+            font-size: 10px;
+
+            color: #6fffc1;
+
+        }
+
+
+        /* =========================
+           CONTENT
+        ========================== */
+
+        .content {
+
+            display: grid;
+
+            grid-template-columns:
+                1.4fr 0.6fr;
+
+            gap: 20px;
+
+        }
+
+
+        .panel {
+
+            padding: 25px;
+
+            border-radius: 18px;
+
+            background:
+                rgba(255,255,255,0.04);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.07);
+
+        }
+
+
+        .panel-header {
+
+            display: flex;
+
+            justify-content:
+                space-between;
+
+            align-items: center;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .panel-header h2 {
+
+            font-size: 17px;
+
+        }
+
+
+        .panel-header span {
+
+            color: #60756f;
+
+            font-size: 11px;
+
+        }
+
+
+        /* =========================
+           MODULE LIST
+        ========================== */
+
+        .module {
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content:
+                space-between;
+
+            padding: 15px;
+
+            margin-bottom: 10px;
+
+            border-radius: 12px;
+
+            background:
+                rgba(255,255,255,0.025);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.05);
+
+        }
+
+
+        .module-left {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 13px;
+
+        }
+
+
+        .module-icon {
+
+            width: 40px;
+            height: 40px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 10px;
+
+            background:
+                rgba(32,216,158,0.08);
+
+            font-size: 17px;
+
+        }
+
+
+        .module strong {
+
+            display: block;
+
+            font-size: 12px;
+
+            margin-bottom: 4px;
+
+        }
+
+
+        .module small {
+
+            color: #60756f;
+
+            font-size: 10px;
+
+        }
+
+
+        .status {
+
+            color: #6fffc1;
+
+            font-size: 10px;
+
+        }
+
+
+        /* =========================
+           QUICK ACTION
+        ========================== */
+
+        .action {
+
+            display: block;
+
+            text-decoration: none;
+
+            color: white;
+
+            padding: 17px;
+
+            margin-bottom: 10px;
+
+            border-radius: 12px;
+
+            background:
+                rgba(255,255,255,0.025);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.06);
+
+            transition: 0.2s;
+
+        }
+
+
+        .action:hover {
+
+            transform:
+                translateY(-2px);
+
+            border-color:
+                rgba(32,216,158,0.3);
+
+        }
+
+
+        .action-icon {
+
+            font-size: 20px;
+
+            margin-bottom: 8px;
+
+        }
+
+
+        .action strong {
+
+            display: block;
+
+            font-size: 12px;
+
+            margin-bottom: 4px;
+
+        }
+
+
+        .action small {
+
+            color: #60756f;
+
+            font-size: 10px;
+
+        }
+
+
+        /* =========================
+           RESPONSIVE
+        ========================== */
+
+        @media(max-width:1000px) {
+
+            .cards {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+            }
+
+            .content {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+
+        @media(max-width:700px) {
+
+            .sidebar {
+
+                position: relative;
+
+                width: 100%;
+
+                height: auto;
+
+            }
+
+            .logout {
+
+                position: relative;
+
+                left: auto;
+                right: auto;
+                bottom: auto;
+
+                margin-top: 20px;
+
+            }
+
+            .main {
+
+                margin-left: 0;
+
+                padding: 20px;
+
+            }
+
+            .cards {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                ☀
+            </div>
+
+            <div class="brand-name">
+                SOLARVISION
+            </div>
+
+        </div>
+
+
+        <div class="menu-title">
+            ADMINISTRATION
+        </div>
+
+
+        <nav class="menu">
+
+
+            <a href="/admin" class="active">
+
+                🏠
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <a href="/users">
+
+                👥
+
+                <span>
+                    Manage Users
+                </span>
+
+            </a>
+
+
+            <a href="#">
+
+                📊
+
+                <span>
+                    Forecasts
+                </span>
+
+            </a>
+
+
+            <a href="#">
+
+                ⚡
+
+                <span>
+                    Generation
+                </span>
+
+            </a>
+
+
+            <a href="#">
+
+                🔔
+
+                <span>
+                    Alerts
+                </span>
+
+            </a>
+
+
+        </nav>
+
+
+        <div class="logout">
+
+            <a href="/logout">
+
+                🚪 Logout
+
+            </a>
+
+        </div>
+
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+
+        <!-- TOPBAR -->
+
+        <div class="topbar">
+
+
+            <div class="welcome">
+
+                <h1>
+                    Admin Dashboard
+                </h1>
+
+                <p>
+                    Welcome to SolarVision administration
+                </p>
+
+            </div>
+
+
+            <div class="profile">
+
+                <div class="avatar">
+                    A
+                </div>
+
+                <div class="profile-text">
+
+                    <strong>
+                        Administrator
+                    </strong>
+
+                    <small>
+                        System Admin
+                    </small>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- STATISTICS -->
+
+        <div class="cards">
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    👥
+                </div>
+
+                <div class="card-title">
+                    TOTAL USERS
+                </div>
+
+                <div class="card-value">
+                    Active
+                </div>
+
+                <div class="card-status">
+                    ● System available
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    ☀️
+                </div>
+
+                <div class="card-title">
+                    SOLAR SYSTEM
+                </div>
+
+                <div class="card-value">
+                    Online
+                </div>
+
+                <div class="card-status">
+                    ● Monitoring active
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🤖
+                </div>
+
+                <div class="card-title">
+                    FORECAST ENGINE
+                </div>
+
+                <div class="card-value">
+                    Ready
+                </div>
+
+                <div class="card-status">
+                    ● AI module ready
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🔐
+                </div>
+
+                <div class="card-title">
+                    SECURITY
+                </div>
+
+                <div class="card-value">
+                    Active
+                </div>
+
+                <div class="card-status">
+                    ● Authentication enabled
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- CONTENT -->
+
+        <div class="content">
+
+
+            <!-- SYSTEM MODULES -->
+
+            <section class="panel">
+
+
+                <div class="panel-header">
+
+                    <h2>
+                        System Modules
+                    </h2>
+
+                    <span>
+                        Module 1
+                    </span>
+
+                </div>
+
+
+                <div class="module">
+
+
+                    <div class="module-left">
+
+                        <div class="module-icon">
+                            🔐
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                Authentication & Role Management
+                            </strong>
+
+                            <small>
+                                Secure login and role-based access
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="status">
+                        ACTIVE
+                    </div>
+
+
+                </div>
+
+
+                <div class="module">
+
+
+                    <div class="module-left">
+
+                        <div class="module-icon">
+                            📁
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                Dataset Management
+                            </strong>
+
+                            <small>
+                                Upload and manage forecasting datasets
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="status">
+                        PLANNED
+                    </div>
+
+
+                </div>
+
+
+                <div class="module">
+
+
+                    <div class="module-left">
+
+                        <div class="module-icon">
+                            🤖
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                Solar Forecasting
+                            </strong>
+
+                            <small>
+                                Generate future solar power predictions
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="status">
+                        PLANNED
+                    </div>
+
+
+                </div>
+
+
+                <div class="module">
+
+
+                    <div class="module-left">
+
+                        <div class="module-icon">
+                            📈
+                        </div>
+
+
+                        <div>
+
+                            <strong>
+                                Performance Analytics
+                            </strong>
+
+                            <small>
+                                Monitor prediction performance
+                            </small>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="status">
+                        PLANNED
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+            <!-- QUICK ACTIONS -->
+
+            <section class="panel">
+
+
+                <div class="panel-header">
+
+                    <h2>
+                        Quick Actions
+                    </h2>
+
+                </div>
+
+
+                <a href="/users" class="action">
+
+                    <div class="action-icon">
+                        👥
+                    </div>
+
+                    <strong>
+                        Manage Users
+                    </strong>
+
+                    <small>
+                        View registered users
+                    </small>
+
+                </a>
+
+
+                <a href="#" class="action">
+
+                    <div class="action-icon">
+                        📁
+                    </div>
+
+                    <strong>
+                        Dataset
+                    </strong>
+
+                    <small>
+                        Manage forecasting data
+                    </small>
+
+                </a>
+
+
+                <a href="#" class="action">
+
+                    <div class="action-icon">
+                        📊
+                    </div>
+
+                    <strong>
+                        Forecast
+                    </strong>
+
+                    <small>
+                        View predictions
+                    </small>
+
+                </a>
+
+
+            </section>
+
+
+        </div>
+
+
+    </main>
+
+
+</body>
+
+</html>

@@ -1,0 +1,1082 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>SolarVision | User Dashboard</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+
+            min-height: 100vh;
+
+            background:
+                radial-gradient(
+                    circle at 85% 10%,
+                    rgba(255,194,70,0.12),
+                    transparent 25%
+                ),
+                radial-gradient(
+                    circle at 5% 90%,
+                    rgba(32,216,158,0.10),
+                    transparent 25%
+                ),
+                #061312;
+
+            color: white;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            position: fixed;
+
+            left: 0;
+            top: 0;
+            bottom: 0;
+
+            width: 250px;
+
+            padding: 28px 20px;
+
+            background:
+                rgba(255,255,255,0.035);
+
+            border-right:
+                1px solid
+                rgba(255,255,255,0.08);
+
+            backdrop-filter: blur(20px);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+
+            gap: 12px;
+
+            padding: 0 10px;
+
+            margin-bottom: 45px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 12px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #a1ffd0,
+                    #20d89e
+                );
+
+            color: #06251b;
+
+            font-size: 21px;
+        }
+
+        .brand-name {
+            font-weight: 800;
+
+            letter-spacing: 1px;
+
+            font-size: 14px;
+        }
+
+        .menu-title {
+            color: #60756f;
+
+            font-size: 10px;
+
+            letter-spacing: 2px;
+
+            margin:
+                0 12px 12px;
+        }
+
+        .menu {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 8px;
+        }
+
+        .menu a {
+            text-decoration: none;
+
+            color: #8ca19b;
+
+            padding:
+                13px 14px;
+
+            border-radius: 11px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            font-size: 13px;
+
+            transition: 0.2s;
+        }
+
+        .menu a:hover {
+            color: white;
+
+            background:
+                rgba(32,216,158,0.08);
+        }
+
+        .menu a.active {
+            color: #a1ffd0;
+
+            background:
+                rgba(32,216,158,0.10);
+
+            border:
+                1px solid
+                rgba(32,216,158,0.12);
+        }
+
+        .logout {
+            position: absolute;
+
+            left: 20px;
+            right: 20px;
+
+            bottom: 25px;
+        }
+
+        .logout a {
+            display: block;
+
+            padding: 12px;
+
+            text-align: center;
+
+            text-decoration: none;
+
+            color: #ff8c8c;
+
+            border-radius: 10px;
+
+            background:
+                rgba(255,80,80,0.06);
+
+            border:
+                1px solid
+                rgba(255,80,80,0.10);
+
+            font-size: 12px;
+        }
+
+        /* MAIN */
+
+        .main {
+            margin-left: 250px;
+
+            padding: 35px;
+        }
+
+        .topbar {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 35px;
+        }
+
+        .welcome h1 {
+            font-size: 28px;
+
+            margin-bottom: 7px;
+        }
+
+        .welcome p {
+            color: #718680;
+
+            font-size: 13px;
+        }
+
+        .profile {
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+        }
+
+        .avatar {
+            width: 42px;
+            height: 42px;
+
+            border-radius: 50%;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #a1ffd0,
+                    #20d89e
+                );
+
+            color: #06251b;
+
+            font-weight: bold;
+        }
+
+        .profile-text strong {
+            display: block;
+
+            font-size: 12px;
+        }
+
+        .profile-text small {
+            color: #60756f;
+
+            font-size: 10px;
+        }
+
+        /* CARDS */
+
+        .cards {
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 18px;
+
+            margin-bottom: 25px;
+        }
+
+        .card {
+            padding: 22px;
+
+            border-radius: 16px;
+
+            background:
+                rgba(255,255,255,0.04);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.07);
+        }
+
+        .card-icon {
+            font-size: 22px;
+
+            margin-bottom: 15px;
+        }
+
+        .card-title {
+            color: #718680;
+
+            font-size: 10px;
+
+            margin-bottom: 8px;
+        }
+
+        .card-value {
+            font-size: 23px;
+
+            font-weight: 800;
+        }
+
+        .card-status {
+            margin-top: 8px;
+
+            font-size: 10px;
+
+            color: #6fffc1;
+        }
+
+        /* CONTENT */
+
+        .content {
+            display: grid;
+
+            grid-template-columns:
+                1.3fr 0.7fr;
+
+            gap: 20px;
+        }
+
+        .panel {
+            padding: 25px;
+
+            border-radius: 18px;
+
+            background:
+                rgba(255,255,255,0.04);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.07);
+        }
+
+        .panel-header {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 22px;
+        }
+
+        .panel-header h2 {
+            font-size: 17px;
+        }
+
+        .panel-header span {
+            color: #60756f;
+
+            font-size: 11px;
+        }
+
+        /* FORECAST */
+
+        .forecast {
+            padding: 20px;
+
+            border-radius: 14px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    rgba(32,216,158,0.08),
+                    rgba(255,190,60,0.05)
+                );
+
+            border:
+                1px solid
+                rgba(32,216,158,0.10);
+
+            margin-bottom: 15px;
+        }
+
+        .forecast-top {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 20px;
+        }
+
+        .forecast-label {
+            color: #718680;
+
+            font-size: 10px;
+
+            letter-spacing: 1px;
+        }
+
+        .forecast-value {
+            font-size: 34px;
+
+            font-weight: 800;
+
+            color: #a1ffd0;
+        }
+
+        .forecast-unit {
+            color: #718680;
+
+            font-size: 11px;
+        }
+
+        .progress {
+            width: 100%;
+
+            height: 7px;
+
+            background:
+                rgba(255,255,255,0.06);
+
+            border-radius: 10px;
+
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            width: 78%;
+
+            height: 100%;
+
+            border-radius: 10px;
+
+            background:
+                linear-gradient(
+                    90deg,
+                    #20d89e,
+                    #ffe08a
+                );
+        }
+
+        .forecast-info {
+            display: flex;
+
+            justify-content: space-between;
+
+            margin-top: 10px;
+
+            color: #60756f;
+
+            font-size: 10px;
+        }
+
+        /* MODULES */
+
+        .module {
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            padding: 15px;
+
+            margin-bottom: 10px;
+
+            border-radius: 12px;
+
+            background:
+                rgba(255,255,255,0.025);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.05);
+        }
+
+        .module-icon {
+            width: 40px;
+            height: 40px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 10px;
+
+            background:
+                rgba(32,216,158,0.08);
+
+            font-size: 17px;
+        }
+
+        .module strong {
+            display: block;
+
+            font-size: 12px;
+
+            margin-bottom: 4px;
+        }
+
+        .module small {
+            color: #60756f;
+
+            font-size: 10px;
+        }
+
+        .status {
+            margin-left: auto;
+
+            color: #6fffc1;
+
+            font-size: 10px;
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width:1000px) {
+
+            .cards {
+                grid-template-columns:
+                    repeat(2, 1fr);
+            }
+
+            .content {
+                grid-template-columns: 1fr;
+            }
+
+        }
+
+        @media(max-width:700px) {
+
+            .sidebar {
+                position: relative;
+
+                width: 100%;
+
+                height: auto;
+            }
+
+            .logout {
+                position: relative;
+
+                left: auto;
+                right: auto;
+                bottom: auto;
+
+                margin-top: 20px;
+            }
+
+            .main {
+                margin-left: 0;
+
+                padding: 20px;
+            }
+
+            .cards {
+                grid-template-columns: 1fr;
+            }
+
+            .topbar {
+                flex-direction: column;
+
+                align-items: flex-start;
+
+                gap: 15px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+
+        <div class="brand">
+
+            <div class="brand-icon">
+                ☀
+            </div>
+
+            <div class="brand-name">
+                SOLARVISION
+            </div>
+
+        </div>
+
+
+        <div class="menu-title">
+            USER PLATFORM
+        </div>
+
+
+        <nav class="menu">
+
+
+            <a href="/user"
+               class="active">
+
+                🏠
+
+                <span>
+                    Dashboard
+                </span>
+
+            </a>
+
+
+            <a href="#">
+
+                ☀️
+
+                <span>
+                    Generation
+                </span>
+
+            </a>
+
+
+            <a href="#">
+
+                🤖
+
+                <span>
+                    Predictions
+                </span>
+
+            </a>
+
+
+            <a href="#">
+
+                🔔
+
+                <span>
+                    Alerts
+                </span>
+
+            </a>
+
+
+            <a href="#">
+
+                📊
+
+                <span>
+                    Analytics
+                </span>
+
+            </a>
+
+
+        </nav>
+
+
+        <div class="logout">
+
+            <a href="/logout">
+
+                🚪 Logout
+
+            </a>
+
+        </div>
+
+
+    </aside>
+
+
+    <!-- MAIN -->
+
+    <main class="main">
+
+
+        <div class="topbar">
+
+
+            <div class="welcome">
+
+                <h1>
+                    Energy Dashboard
+                </h1>
+
+                <p>
+                    Solar generation monitoring & forecasting
+                </p>
+
+            </div>
+
+
+            <div class="profile">
+
+                <div class="avatar">
+                    U
+                </div>
+
+                <div class="profile-text">
+
+                    <strong>
+                        Solar User
+                    </strong>
+
+                    <small>
+                        Operator / User
+                    </small>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- STAT CARDS -->
+
+        <div class="cards">
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    ☀️
+                </div>
+
+                <div class="card-title">
+                    CURRENT GENERATION
+                </div>
+
+                <div class="card-value">
+                    4.82 MW
+                </div>
+
+                <div class="card-status">
+                    ● Generating
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🤖
+                </div>
+
+                <div class="card-title">
+                    AI FORECAST
+                </div>
+
+                <div class="card-value">
+                    5.36 MW
+                </div>
+
+                <div class="card-status">
+                    ● Prediction ready
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    📈
+                </div>
+
+                <div class="card-title">
+                    PERFORMANCE
+                </div>
+
+                <div class="card-value">
+                    94.6%
+                </div>
+
+                <div class="card-status">
+                    ● Within target
+                </div>
+
+            </div>
+
+
+            <div class="card">
+
+                <div class="card-icon">
+                    🌤️
+                </div>
+
+                <div class="card-title">
+                    WEATHER
+                </div>
+
+                <div class="card-value">
+                    Optimal
+                </div>
+
+                <div class="card-status">
+                    ● Good solar conditions
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- CONTENT -->
+
+        <div class="content">
+
+
+            <!-- FORECAST -->
+
+            <section class="panel">
+
+
+                <div class="panel-header">
+
+                    <h2>
+                        Today's Solar Forecast
+                    </h2>
+
+                    <span>
+                        AI Prediction
+                    </span>
+
+                </div>
+
+
+                <div class="forecast">
+
+
+                    <div class="forecast-top">
+
+                        <div>
+
+                            <div class="forecast-label">
+                                EXPECTED GENERATION
+                            </div>
+
+                            <div class="forecast-value">
+                                5.36
+                            </div>
+
+                            <div class="forecast-unit">
+                                Megawatts
+                            </div>
+
+                        </div>
+
+
+                        <div style="font-size:45px;">
+                            ☀️
+                        </div>
+
+                    </div>
+
+
+                    <div class="progress">
+
+                        <div class="progress-bar"></div>
+
+                    </div>
+
+
+                    <div class="forecast-info">
+
+                        <span>
+                            Forecast confidence
+                        </span>
+
+                        <span>
+                            92%
+                        </span>
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="module">
+
+
+                    <div class="module-icon">
+                        🤖
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            AI Forecast Engine
+                        </strong>
+
+                        <small>
+                            Prediction model is ready
+                        </small>
+
+                    </div>
+
+
+                    <div class="status">
+                        READY
+                    </div>
+
+
+                </div>
+
+
+                <div class="module">
+
+
+                    <div class="module-icon">
+                        📡
+                    </div>
+
+
+                    <div>
+
+                        <strong>
+                            Live Generation Data
+                        </strong>
+
+                        <small>
+                            Real-time plant monitoring
+                        </small>
+
+                    </div>
+
+
+                    <div class="status">
+                        ONLINE
+                    </div>
+
+
+                </div>
+
+
+            </section>
+
+
+            <!-- SYSTEM STATUS -->
+
+            <section class="panel">
+
+
+                <div class="panel-header">
+
+                    <h2>
+                        System Status
+                    </h2>
+
+                </div>
+
+
+                <div class="module">
+
+                    <div class="module-icon">
+                        🔐
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Authentication
+                        </strong>
+
+                        <small>
+                            Secure session
+                        </small>
+
+                    </div>
+
+                    <div class="status">
+                        ACTIVE
+                    </div>
+
+                </div>
+
+
+                <div class="module">
+
+                    <div class="module-icon">
+                        ☀️
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Solar Plant
+                        </strong>
+
+                        <small>
+                            Monitoring available
+                        </small>
+
+                    </div>
+
+                    <div class="status">
+                        ONLINE
+                    </div>
+
+                </div>
+
+
+                <div class="module">
+
+                    <div class="module-icon">
+                        🤖
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Forecast Model
+                        </strong>
+
+                        <small>
+                            Ready for predictions
+                        </small>
+
+                    </div>
+
+                    <div class="status">
+                        READY
+                    </div>
+
+                </div>
+
+
+                <div class="module">
+
+                    <div class="module-icon">
+                        🔔
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            Alerts
+                        </strong>
+
+                        <small>
+                            No critical alerts
+                        </small>
+
+                    </div>
+
+                    <div class="status">
+                        CLEAR
+                    </div>
+
+                </div>
+
+
+            </section>
+
+
+        </div>
+
+
+    </main>
+
+
+</body>
+
+</html>
