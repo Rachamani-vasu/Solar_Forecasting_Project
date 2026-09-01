@@ -1,33 +1,21 @@
 from flask import Flask, render_template, request, redirect, session
 import sqlite3
 import hashlib
+import os
 
 app = Flask(__name__)
 
-app.secret_key = "solar_forecasting_secret_key"
+app.secret_key = os.environ.get(
+    "SECRET_KEY",
+    "solar_forecasting_secret_key"
+)
 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+DATABASE = os.path.join(BASE_DIR, "solar_users.db")
 
-# ==========================================
-# DATABASE CONNECTION
-# ==========================================
-
-def get_db_connection():
-
-    connection = sqlite3.connect("solar_users.db")
-
-    connection.row_factory = sqlite3.Row
-
-    return connection
-
-
-# ==========================================
-# CREATE DATABASE
-# ==========================================
 
 def create_database():
-
-    connection = get_db_connection()
-
+    connection = sqlite3.connect(DATABASE)
     cursor = connection.cursor()
 
     cursor.execute("""
@@ -41,17 +29,11 @@ def create_database():
         )
     """)
 
-    connection.commit()
-
-
-    # DEFAULT ADMIN
-
     admin_password = hashlib.sha256(
         "admin123".encode()
     ).hexdigest()
 
     try:
-
         cursor.execute("""
             INSERT INTO users
             (full_name, username, email, password, role)
@@ -63,20 +45,14 @@ def create_database():
             admin_password,
             "admin"
         ))
-
     except sqlite3.IntegrityError:
-
         pass
-
-
-    # DEFAULT USER
 
     user_password = hashlib.sha256(
         "user123".encode()
     ).hexdigest()
 
     try:
-
         cursor.execute("""
             INSERT INTO users
             (full_name, username, email, password, role)
@@ -88,20 +64,18 @@ def create_database():
             user_password,
             "user"
         ))
-
     except sqlite3.IntegrityError:
-
         pass
 
-
     connection.commit()
-
     connection.close()
 
 
-# ==========================================
-# LOGIN
-# ==========================================
+def get_db_connection():
+    connection = sqlite3.connect(DATABASE)
+    connection.row_factory = sqlite3.Row
+    return connection
+
 
 @app.route("/", methods=["GET", "POST"])
 def login():
@@ -110,19 +84,10 @@ def login():
 
     if request.method == "POST":
 
-        username = request.form.get(
-            "username",
-            ""
-        ).strip()
-
-        password = request.form.get(
-            "password",
-            ""
-        )
-
+        username = request.form.get("username", "").strip()
+        password = request.form.get("password", "")
 
         if not username or not password:
-
             error = "Please enter username and password"
 
             return render_template(
@@ -130,14 +95,11 @@ def login():
                 error=error
             )
 
-
         hashed_password = hashlib.sha256(
             password.encode()
         ).hexdigest()
 
-
         connection = get_db_connection()
-
 
         user = connection.execute("""
             SELECT *
@@ -149,30 +111,21 @@ def login():
             hashed_password
         )).fetchone()
 
-
         connection.close()
-
 
         if user:
 
             session["user_id"] = user["id"]
-
             session["username"] = user["username"]
-
             session["full_name"] = user["full_name"]
-
             session["role"] = user["role"]
 
-
             if user["role"] == "admin":
-
                 return redirect("/admin")
 
             return redirect("/user")
 
-
         error = "Invalid username or password"
-
 
     return render_template(
         "login.html",
@@ -180,64 +133,37 @@ def login():
     )
 
 
-# ==========================================
-# ADMIN DASHBOARD
-# ==========================================
-
 @app.route("/admin")
 def admin_dashboard():
 
     if "user_id" not in session:
-
         return redirect("/")
 
-
     if session.get("role") != "admin":
-
         return "Access Denied - Admins Only", 403
 
+    return render_template("admin.html")
 
-    return render_template(
-        "admin.html"
-    )
-
-
-# ==========================================
-# USER DASHBOARD
-# ==========================================
 
 @app.route("/user")
 def user_dashboard():
 
     if "user_id" not in session:
-
         return redirect("/")
 
+    return render_template("user.html")
 
-    return render_template(
-        "user.html"
-    )
-
-
-# ==========================================
-# MANAGE USERS
-# ==========================================
 
 @app.route("/users")
 def users():
 
     if "user_id" not in session:
-
         return redirect("/")
 
-
     if session.get("role") != "admin":
-
         return "Access Denied - Admins Only", 403
 
-
     connection = get_db_connection()
-
 
     users = connection.execute("""
         SELECT
@@ -250,9 +176,7 @@ def users():
         ORDER BY id
     """).fetchall()
 
-
     connection.close()
-
 
     return render_template(
         "users.html",
@@ -260,100 +184,61 @@ def users():
     )
 
 
-# ==========================================
-# ADD USER
-# ==========================================
-
-@app.route(
-    "/add-user",
-    methods=["POST"]
-)
+@app.route("/add-user", methods=["POST"])
 def add_user():
 
     if "user_id" not in session:
-
         return redirect("/")
 
-
     if session.get("role") != "admin":
-
         return "Access Denied - Admins Only", 403
 
-
     full_name = request.form.get(
-        "full_name",
-        ""
+        "full_name", ""
     ).strip()
-
 
     username = request.form.get(
-        "username",
-        ""
+        "username", ""
     ).strip()
-
 
     email = request.form.get(
-        "email",
-        ""
+        "email", ""
     ).strip()
 
-
     password = request.form.get(
-        "password",
-        ""
+        "password", ""
     )
 
-
     role = request.form.get(
-        "role",
-        ""
+        "role", ""
     ).strip().lower()
 
-
     if not full_name:
-
         return "Full name is required", 400
 
-
     if not username:
-
         return "Username is required", 400
 
-
     if not email:
-
         return "Email is required", 400
 
-
     if not password:
-
         return "Password is required", 400
 
-
     if role not in ["admin", "user"]:
-
         return "Invalid role", 400
-
 
     hashed_password = hashlib.sha256(
         password.encode()
     ).hexdigest()
 
-
     connection = get_db_connection()
-
 
     try:
 
         connection.execute("""
             INSERT INTO users
-            (
-                full_name,
-                username,
-                email,
-                password,
-                role
-            )
+            (full_name, username, email, password, role)
             VALUES (?, ?, ?, ?, ?)
         """, (
             full_name,
@@ -365,23 +250,16 @@ def add_user():
 
         connection.commit()
 
-
     except sqlite3.IntegrityError:
 
         connection.close()
 
         return "Username already exists", 400
 
-
     connection.close()
-
 
     return redirect("/users")
 
-
-# ==========================================
-# DELETE USER
-# ==========================================
 
 @app.route(
     "/delete-user/<int:user_id>",
@@ -390,45 +268,26 @@ def add_user():
 def delete_user(user_id):
 
     if "user_id" not in session:
-
         return redirect("/")
 
-
     if session.get("role") != "admin":
-
         return "Access Denied - Admins Only", 403
 
-
     if user_id == session.get("user_id"):
-
-        return (
-            "You cannot delete your own account.",
-            400
-        )
-
+        return "You cannot delete your own account.", 400
 
     connection = get_db_connection()
-
 
     connection.execute("""
         DELETE FROM users
         WHERE id = ?
-    """, (
-        user_id,
-    ))
-
+    """, (user_id,))
 
     connection.commit()
-
     connection.close()
-
 
     return redirect("/users")
 
-
-# ==========================================
-# LOGOUT
-# ==========================================
 
 @app.route("/logout")
 def logout():
@@ -438,25 +297,26 @@ def logout():
     return redirect("/")
 
 
-# ==========================================
-# START APPLICATION
-# ==========================================
+# IMPORTANT:
+# Create the database when Flask/Gunicorn loads app.py.
+create_database()
+
 
 if __name__ == "__main__":
 
-    create_database()
+    port = int(
+        os.environ.get(
+            "PORT",
+            5050
+        )
+    )
 
-    print("")
     print("======================================")
     print("       SOLARVISION STARTING")
     print("======================================")
-    print("")
-    print("Login page:")
-    print("http://127.0.0.1:5050")
-    print("")
 
     app.run(
-        host="127.0.0.1",
-        port=5050,
-        debug=True
+        host="0.0.0.0",
+        port=port,
+        debug=False
     )
