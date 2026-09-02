@@ -1,1134 +1,424 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>SolarVision | Manage Users</title>
-
-    <style>
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: Arial, Helvetica, sans-serif;
-            min-height: 100vh;
-
-            background:
-                radial-gradient(circle at 85% 10%,
-                    rgba(255,194,70,0.12),
-                    transparent 25%),
-
-                radial-gradient(circle at 5% 90%,
-                    rgba(32,216,158,0.10),
-                    transparent 25%),
-
-                #061312;
-
-            color: white;
-        }
-
-        /* SIDEBAR */
-
-        .sidebar {
-            position: fixed;
-            left: 0;
-            top: 0;
-            bottom: 0;
-
-            width: 250px;
-            padding: 28px 20px;
-
-            background: rgba(255,255,255,0.035);
-
-            border-right:
-                1px solid
-                rgba(255,255,255,0.08);
-
-            backdrop-filter: blur(20px);
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-
-            padding: 0 10px;
-            margin-bottom: 45px;
-        }
-
-        .brand-icon {
-            width: 42px;
-            height: 42px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            border-radius: 12px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #a1ffd0,
-                    #20d89e
-                );
-
-            color: #06251b;
-            font-size: 21px;
-        }
-
-        .brand-name {
-            font-weight: 800;
-            letter-spacing: 1px;
-            font-size: 14px;
-        }
-
-        .menu-title {
-            color: #60756f;
-            font-size: 10px;
-            letter-spacing: 2px;
-
-            margin:
-                0 12px 12px;
-        }
-
-        .menu {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-
-        .menu a {
-            text-decoration: none;
-
-            color: #8ca19b;
-
-            padding:
-                13px 14px;
-
-            border-radius: 11px;
-
-            display: flex;
-            align-items: center;
-            gap: 12px;
-
-            font-size: 13px;
-
-            transition: 0.2s;
-        }
-
-        .menu a:hover {
-            color: white;
-
-            background:
-                rgba(32,216,158,0.08);
-        }
-
-        .menu a.active {
-            color: #a1ffd0;
-
-            background:
-                rgba(32,216,158,0.10);
-
-            border:
-                1px solid
-                rgba(32,216,158,0.12);
-        }
-
-        .logout {
-            position: absolute;
-
-            left: 20px;
-            right: 20px;
-            bottom: 25px;
-        }
-
-        .logout a {
-            display: block;
-
-            padding: 12px;
-
-            text-align: center;
-
-            text-decoration: none;
-
-            color: #ff8c8c;
-
-            border-radius: 10px;
-
-            background:
-                rgba(255,80,80,0.06);
-
-            border:
-                1px solid
-                rgba(255,80,80,0.10);
-
-            font-size: 12px;
-        }
-
-        /* MAIN */
-
-        .main {
-            margin-left: 250px;
-            padding: 35px;
-        }
-
-        .topbar {
-            display: flex;
-
-            justify-content:
-                space-between;
-
-            align-items: center;
-
-            margin-bottom: 30px;
-        }
-
-        .heading h1 {
-            font-size: 28px;
-            margin-bottom: 7px;
-        }
-
-        .heading p {
-            color: #718680;
-            font-size: 13px;
-        }
-
-        .back {
-            padding:
-                11px 16px;
-
-            border-radius: 10px;
-
-            text-decoration: none;
-
-            color: #a1ffd0;
-
-            background:
-                rgba(32,216,158,0.07);
-
-            border:
-                1px solid
-                rgba(32,216,158,0.12);
-
-            font-size: 12px;
-        }
-
-        /* SUMMARY */
-
-        .summary {
-            display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            gap: 18px;
-
-            margin-bottom: 22px;
-        }
-
-        .summary-card {
-            padding: 20px;
-
-            border-radius: 16px;
-
-            background:
-                rgba(255,255,255,0.04);
-
-            border:
-                1px solid
-                rgba(255,255,255,0.07);
-        }
-
-        .summary-icon {
-            font-size: 22px;
-            margin-bottom: 12px;
-        }
-
-        .summary-title {
-            color: #718680;
-
-            font-size: 10px;
-
-            margin-bottom: 7px;
-        }
-
-        .summary-value {
-            font-size: 24px;
-            font-weight: 800;
-        }
-
-        /* ADD USER */
-
-        .add-panel {
-            padding: 25px;
-
-            border-radius: 18px;
-
-            background:
-                rgba(255,255,255,0.04);
-
-            border:
-                1px solid
-                rgba(255,255,255,0.07);
-
-            margin-bottom: 22px;
-        }
-
-        .panel-title {
-            font-size: 17px;
-            margin-bottom: 20px;
-        }
-
-        .form-grid {
-            display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            gap: 15px;
-        }
-
-        .form-group label {
-            display: block;
-
-            color: #8ca19b;
-
-            font-size: 10px;
-
-            letter-spacing: 1px;
-
-            margin-bottom: 8px;
-        }
-
-        .form-group input,
-        .form-group select {
-
-            width: 100%;
-
-            height: 45px;
-
-            padding:
-                0 13px;
-
-            border-radius: 10px;
-
-            border:
-                1px solid
-                rgba(255,255,255,0.08);
-
-            background:
-                rgba(255,255,255,0.04);
-
-            color: white;
-
-            outline: none;
-
-            font-size: 12px;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus {
-
-            border-color:
-                #20d89e;
-
-            box-shadow:
-                0 0 0 3px
-                rgba(32,216,158,0.08);
-        }
-
-        .form-group select option {
-            background: #10221f;
-            color: white;
-        }
-
-        .add-button {
-
-            margin-top: 20px;
-
-            height: 45px;
-
-            padding:
-                0 22px;
-
-            border: none;
-
-            border-radius: 10px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #a1ffd0,
-                    #20d89e
-                );
-
-            color: #06251b;
-
-            font-size: 12px;
-
-            font-weight: 800;
-
-            cursor: pointer;
-
-            transition: 0.2s;
-        }
-
-        .add-button:hover {
-
-            transform:
-                translateY(-2px);
-
-            box-shadow:
-                0 10px 25px
-                rgba(32,216,158,0.20);
-        }
-
-        /* USER TABLE */
-
-        .panel {
-
-            padding: 25px;
-
-            border-radius: 18px;
-
-            background:
-                rgba(255,255,255,0.04);
-
-            border:
-                1px solid
-                rgba(255,255,255,0.07);
-        }
-
-        .panel-header {
-
-            display: flex;
-
-            justify-content:
-                space-between;
-
-            align-items: center;
-
-            margin-bottom: 22px;
-        }
-
-        .panel-header h2 {
-            font-size: 17px;
-        }
-
-        .panel-header span {
-            color: #60756f;
-            font-size: 11px;
-        }
-
-        .table-container {
-            overflow-x: auto;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        th {
-            text-align: left;
-
-            padding:
-                14px 12px;
-
-            color: #60756f;
-
-            font-size: 10px;
-
-            letter-spacing: 1px;
-
-            border-bottom:
-                1px solid
-                rgba(255,255,255,0.08);
-        }
-
-        td {
-            padding:
-                17px 12px;
-
-            font-size: 12px;
-
-            color: #b8c9c5;
-
-            border-bottom:
-                1px solid
-                rgba(255,255,255,0.05);
-        }
-
-        tr:hover td {
-            background:
-                rgba(32,216,158,0.025);
-        }
-
-        .user-name {
-            display: flex;
-            align-items: center;
-            gap: 11px;
-        }
-
-        .avatar {
-            width: 36px;
-            height: 36px;
-
-            border-radius: 50%;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #a1ffd0,
-                    #20d89e
-                );
-
-            color: #06251b;
-
-            font-weight: bold;
-            font-size: 12px;
-        }
-
-        .name-text strong {
-            display: block;
-
-            color: white;
-
-            font-size: 12px;
-
-            margin-bottom: 3px;
-        }
-
-        .name-text small {
-            color: #60756f;
-            font-size: 9px;
-        }
-
-        .role {
-            display: inline-block;
-
-            padding:
-                6px 10px;
-
-            border-radius: 20px;
-
-            font-size: 9px;
-
-            font-weight: bold;
-        }
-
-        .role-admin {
-            color: #ffe08a;
-
-            background:
-                rgba(255,190,60,0.10);
-        }
-
-        .role-user {
-            color: #a1ffd0;
-
-            background:
-                rgba(32,216,158,0.08);
-        }
-
-        .status {
-            color: #6fffc1;
-            font-size: 10px;
-        }
-
-        .delete-button {
-
-            border: none;
-
-            padding:
-                7px 11px;
-
-            border-radius: 8px;
-
-            background:
-                rgba(255,80,80,0.08);
-
-            color: #ff8c8c;
-
-            font-size: 10px;
-
-            cursor: pointer;
-        }
-
-        .delete-button:hover {
-
-            background:
-                rgba(255,80,80,0.16);
-        }
-
-        .security {
-
-            text-align: center;
-
-            color: #50645f;
-
-            font-size: 10px;
-
-            margin-top: 20px;
-        }
-
-        @media(max-width:1000px) {
-
-            .summary {
-                grid-template-columns: 1fr;
-            }
-
-            .form-grid {
-                grid-template-columns: 1fr;
-            }
-
-        }
-
-        @media(max-width:700px) {
-
-            .sidebar {
-                position: relative;
-
-                width: 100%;
-
-                height: auto;
-            }
-
-            .logout {
-                position: relative;
-
-                left: auto;
-                right: auto;
-                bottom: auto;
-
-                margin-top: 20px;
-            }
-
-            .main {
-                margin-left: 0;
-                padding: 20px;
-            }
-
-            .topbar {
-                flex-direction: column;
-
-                align-items:
-                    flex-start;
-
-                gap: 15px;
-            }
-
-        }
-
-    </style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SolarVision | Manage Users</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+    background:#eee2d2;
+    color:#3e2d24;
+    font-family:"Segoe UI",Arial,sans-serif;
+}
+
+.header{
+    height:82px;
+    background:#30221b;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 5%;
+    color:#f4e6d2;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:13px;
+}
+
+.sun{
+    width:42px;
+    height:42px;
+    border:2px solid #d6a45d;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.sun:after{
+    content:"";
+    width:18px;
+    height:18px;
+    background:#d6a45d;
+    border-radius:50%;
+}
+
+.logo h1{
+    font-family:Georgia,serif;
+    font-size:25px;
+    letter-spacing:2px;
+}
+
+.logo span{
+    display:block;
+    color:#bfae9b;
+    font-size:9px;
+    letter-spacing:2px;
+}
+
+.back{
+    color:#e7d5bf;
+    text-decoration:none;
+    font-size:12px;
+    border:1px solid #82644d;
+    padding:9px 17px;
+    border-radius:20px;
+}
+
+.container{
+    max-width:1250px;
+    margin:auto;
+    padding:45px 25px;
+}
+
+.heading small{
+    color:#a67640;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    font-size:11px;
+}
+
+.heading h2{
+    font-family:Georgia,serif;
+    font-size:42px;
+    color:#3d2a20;
+    margin:10px 0;
+}
+
+.heading p{
+    color:#806f62;
+    font-size:13px;
+}
+
+.add-card{
+    margin-top:30px;
+    background:#f8f0e4;
+    border:1px solid #d8c5ae;
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 10px 25px rgba(65,45,31,.07);
+}
+
+.add-card h3{
+    font-family:Georgia,serif;
+    font-size:24px;
+    margin-bottom:22px;
+    color:#4a3428;
+}
+
+.form{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+}
+
+input{
+    width:100%;
+    height:45px;
+    padding:0 13px;
+    border:1px solid #cdbba6;
+    border-radius:9px;
+    background:#fbf6ed;
+    outline:none;
+    color:#3e2d24;
+}
+
+input:focus{
+    border-color:#ae7b3e;
+}
+
+.add-button{
+    height:45px;
+    border:0;
+    border-radius:9px;
+    background:#4a3428;
+    color:#f7ead7;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:1px;
+    cursor:pointer;
+}
+
+.add-button:hover{
+    background:#684a37;
+}
+
+.table-card{
+    margin-top:25px;
+    background:#f8f0e4;
+    border:1px solid #d8c5ae;
+    border-radius:20px;
+    padding:30px;
+    box-shadow:0 10px 25px rgba(65,45,31,.07);
+    overflow-x:auto;
+}
+
+.table-card h3{
+    font-family:Georgia,serif;
+    font-size:24px;
+    color:#4a3428;
+    margin-bottom:20px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:750px;
+}
+
+th{
+    background:#e5d3bc;
+    color:#604a3b;
+    padding:14px;
+    text-align:left;
+    font-size:11px;
+    letter-spacing:1px;
+    text-transform:uppercase;
+}
+
+td{
+    padding:15px 14px;
+    border-bottom:1px solid #dfcfbd;
+    font-size:12px;
+    color:#665448;
+}
+
+.role{
+    display:inline-block;
+    padding:6px 13px;
+    border-radius:20px;
+    font-size:10px;
+    font-weight:700;
+}
+
+.admin{
+    background:#ead5ad;
+    color:#795722;
+}
+
+.user{
+    background:#dfebdf;
+    color:#496649;
+}
+
+.delete{
+    border:1px solid #c99d91;
+    background:#f5e1dc;
+    color:#914e43;
+    padding:7px 12px;
+    border-radius:7px;
+    cursor:pointer;
+    font-size:10px;
+}
+
+.delete:hover{
+    background:#ecd0c9;
+}
+
+.protected{
+    color:#a67640;
+    font-size:10px;
+}
+
+.footer{
+    text-align:center;
+    padding:30px;
+    color:#9b897a;
+    font-size:10px;
+}
+
+@media(max-width:850px){
+    .form{grid-template-columns:1fr 1fr}
+}
+
+@media(max-width:550px){
+    .header{padding:0 20px}
+    .form{grid-template-columns:1fr}
+    .container{padding:30px 15px}
+    .heading h2{font-size:34px}
+}
+</style>
 </head>
-
 
 <body>
 
+<header class="header">
 
-    <!-- SIDEBAR -->
+<div class="logo">
 
-    <aside class="sidebar">
+    <div class="sun"></div>
 
-        <div class="brand">
+    <div>
+        <h1>SOLARVISION</h1>
+        <span>SOLAR GENERATION FORECASTING</span>
+    </div>
 
-            <div class="brand-icon">
-                ☀
-            </div>
+</div>
 
-            <div class="brand-name">
-                SOLARVISION
-            </div>
+<a class="back" href="/admin">
+    ADMIN DASHBOARD
+</a>
 
-        </div>
+</header>
 
 
-        <div class="menu-title">
-            ADMINISTRATION
-        </div>
+<main class="container">
 
+<section class="heading">
 
-        <nav class="menu">
+    <small>Administration</small>
 
-            <a href="/admin">
-                🏠
-                <span>Dashboard</span>
-            </a>
+    <h2>Manage Users</h2>
 
+    <p>
+        Create and manage SolarVision user accounts.
+        The main administrator account is protected.
+    </p>
 
-            <a href="/users"
-               class="active">
-                👥
-                <span>Manage Users</span>
-            </a>
+</section>
 
 
-            <a href="#">
-                📊
-                <span>Forecasts</span>
-            </a>
+<section class="add-card">
 
+    <h3>Add New User</h3>
 
-            <a href="#">
-                ⚡
-                <span>Generation</span>
-            </a>
+    <form class="form" method="POST" action="/add-user">
 
+        <input
+            type="text"
+            name="full_name"
+            placeholder="Full name"
+            required
+        >
 
-            <a href="#">
-                🔔
-                <span>Alerts</span>
-            </a>
+        <input
+            type="text"
+            name="username"
+            placeholder="Username"
+            required
+        >
 
-        </nav>
+        <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            required
+        >
 
+        <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            required
+        >
 
-        <div class="logout">
+        <button class="add-button" type="submit">
+            ADD USER
+        </button>
 
-            <a href="/logout">
-                🚪 Logout
-            </a>
+    </form>
 
-        </div>
+</section>
 
-    </aside>
 
+<section class="table-card">
 
-    <!-- MAIN -->
+    <h3>Registered Accounts</h3>
 
-    <main class="main">
+    <table>
 
+        <thead>
 
-        <div class="topbar">
+            <tr>
+                <th>ID</th>
+                <th>Full Name</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Action</th>
+            </tr>
 
-            <div class="heading">
+        </thead>
 
-                <h1>
-                    Manage Users
-                </h1>
+        <tbody>
 
-                <p>
-                    Authentication & Role Management
-                </p>
+        {% for user in users %}
 
-            </div>
+        <tr>
 
+            <td>{{ user["id"] }}</td>
 
-            <a href="/admin"
-               class="back">
+            <td>{{ user["full_name"] }}</td>
 
-                ← Dashboard
+            <td>{{ user["username"] }}</td>
 
-            </a>
+            <td>{{ user["email"] }}</td>
 
-        </div>
+            <td>
 
+                {% if user["role"] == "admin" %}
 
-        <!-- SUMMARY -->
-
-        <div class="summary">
-
-
-            <div class="summary-card">
-
-                <div class="summary-icon">
-                    👥
-                </div>
-
-                <div class="summary-title">
-                    REGISTERED USERS
-                </div>
-
-                <div class="summary-value">
-                    {{ users|length }}
-                </div>
-
-            </div>
-
-
-            <div class="summary-card">
-
-                <div class="summary-icon">
-                    🔐
-                </div>
-
-                <div class="summary-title">
-                    ACCESS CONTROL
-                </div>
-
-                <div class="summary-value">
-                    Active
-                </div>
-
-            </div>
-
-
-            <div class="summary-card">
-
-                <div class="summary-icon">
-                    🛡️
-                </div>
-
-                <div class="summary-title">
-                    SECURITY
-                </div>
-
-                <div class="summary-value">
-                    Enabled
-                </div>
-
-            </div>
-
-        </div>
-
-
-        <!-- ADD USER -->
-
-        <section class="add-panel">
-
-
-            <div class="panel-title">
-                ➕ Add New User
-            </div>
-
-
-            <form method="POST"
-                  action="/add-user">
-
-
-                <div class="form-grid">
-
-
-                    <div class="form-group">
-
-                        <label>
-                            FULL NAME
-                        </label>
-
-                        <input
-                            type="text"
-                            name="full_name"
-                            placeholder="Enter full name"
-                            required>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label>
-                            USERNAME
-                        </label>
-
-                        <input
-                            type="text"
-                            name="username"
-                            placeholder="Enter username"
-                            required>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label>
-                            EMAIL
-                        </label>
-
-                        <input
-                            type="email"
-                            name="email"
-                            placeholder="Enter email"
-                            required>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label>
-                            PASSWORD
-                        </label>
-
-                        <input
-                            type="password"
-                            name="password"
-                            placeholder="Enter password"
-                            required>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label>
-                            ROLE
-                        </label>
-
-                        <select name="role"
-                                required>
-
-                            <option value="user">
-                                User
-                            </option>
-
-                            <option value="admin">
-                                Admin
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-                </div>
-
-
-                <button
-                    type="submit"
-                    class="add-button">
-
-                    ADD USER →
-
-                </button>
-
-
-            </form>
-
-
-        </section>
-
-
-        <!-- USER TABLE -->
-
-        <section class="panel">
-
-
-            <div class="panel-header">
-
-                <h2>
-                    Registered Users
-                </h2>
-
-                <span>
-                    Secure user directory
+                <span class="role admin">
+                    ADMIN
                 </span>
 
-            </div>
+                {% else %}
 
+                <span class="role user">
+                    USER
+                </span>
 
-            <div class="table-container">
+                {% endif %}
 
+            </td>
 
-                <table>
+            <td>
 
+                {% if user["role"] == "admin" %}
 
-                    <thead>
+                    <span class="protected">
+                        PROTECTED
+                    </span>
 
-                        <tr>
+                {% else %}
 
-                            <th>USER</th>
+                    <form
+                        method="POST"
+                        action="/delete-user/{{ user['id'] }}"
+                        onsubmit="return confirm('Delete this user?');"
+                    >
 
-                            <th>USERNAME</th>
+                        <button class="delete" type="submit">
+                            DELETE
+                        </button>
 
-                            <th>EMAIL</th>
+                    </form>
 
-                            <th>ROLE</th>
+                {% endif %}
 
-                            <th>STATUS</th>
+            </td>
 
-                            <th>ACTION</th>
+        </tr>
 
-                        </tr>
+        {% endfor %}
 
-                    </thead>
+        </tbody>
 
+    </table>
 
-                    <tbody>
+</section>
 
+</main>
 
-                        {% for user in users %}
 
-
-                        <tr>
-
-
-                            <td>
-
-                                <div class="user-name">
-
-
-                                    <div class="avatar">
-
-                                        {{ user["full_name"][0]|upper }}
-
-                                    </div>
-
-
-                                    <div class="name-text">
-
-                                        <strong>
-                                            {{ user["full_name"] }}
-                                        </strong>
-
-                                        <small>
-                                            SolarVision account
-                                        </small>
-
-                                    </div>
-
-
-                                </div>
-
-                            </td>
-
-
-                            <td>
-                                {{ user["username"] }}
-                            </td>
-
-
-                            <td>
-                                {{ user["email"] }}
-                            </td>
-
-
-                            <td>
-
-
-                                {% if user["role"] == "admin" %}
-
-                                    <span class="role role-admin">
-                                        ADMIN
-                                    </span>
-
-                                {% else %}
-
-                                    <span class="role role-user">
-                                        USER
-                                    </span>
-
-                                {% endif %}
-
-
-                            </td>
-
-
-                            <td>
-
-                                <span class="status">
-                                    ● ACTIVE
-                                </span>
-
-                            </td>
-
-
-                            <td>
-
-
-                                {% if user["id"] != session["user_id"] %}
-
-
-                                    <form
-                                        method="POST"
-                                        action="/delete-user/{{ user['id'] }}"
-                                        onsubmit="return confirm('Are you sure you want to delete this user?');"
-                                        style="display:inline;">
-
-                                        <button
-                                            type="submit"
-                                            class="delete-button">
-
-                                            Delete
-
-                                        </button>
-
-                                    </form>
-
-
-                                {% else %}
-
-
-                                    <span
-                                        style="
-                                            color:#60756f;
-                                            font-size:10px;
-                                        ">
-
-                                        Current Account
-
-                                    </span>
-
-
-                                {% endif %}
-
-
-                            </td>
-
-
-                        </tr>
-
-
-                        {% else %}
-
-
-                        <tr>
-
-                            <td
-                                colspan="6"
-                                style="
-                                    text-align:center;
-                                    padding:40px;
-                                    color:#60756f;
-                                ">
-
-                                No users found.
-
-                            </td>
-
-                        </tr>
-
-
-                        {% endfor %}
-
-
-                    </tbody>
-
-
-                </table>
-
-
-            </div>
-
-
-        </section>
-
-
-        <div class="security">
-
-            🔒 Only administrators can manage user accounts
-
-        </div>
-
-
-    </main>
-
+<footer class="footer">
+    © 2026 SolarVision • Intelligent Solar Energy Forecasting
+</footer>
 
 </body>
-
 </html>

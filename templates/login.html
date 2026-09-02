@@ -1,752 +1,852 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SolarVision | Login</title>
-
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            min-height: 100vh;
-            font-family: Arial, Helvetica, sans-serif;
-            color: white;
-            background:
-                radial-gradient(circle at 80% 20%, rgba(255,194,70,0.16), transparent 30%),
-                radial-gradient(circle at 10% 90%, rgba(32,216,158,0.13), transparent 30%),
-                #061312;
-
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 25px;
-        }
-
-        .container {
-            width: 1100px;
-            max-width: 100%;
-            min-height: 650px;
-
-            display: grid;
-            grid-template-columns: 1.15fr 0.85fr;
-
-            background: rgba(255,255,255,0.045);
-            border: 1px solid rgba(255,255,255,0.10);
-            border-radius: 28px;
-            overflow: hidden;
-
-            backdrop-filter: blur(25px);
-
-            box-shadow:
-                0 35px 90px rgba(0,0,0,0.55);
-        }
-
-        /* LEFT */
-
-        .left {
-            position: relative;
-            padding: 60px;
-
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-
-            background:
-                linear-gradient(
-                    145deg,
-                    rgba(32,216,158,0.08),
-                    transparent 65%
-                );
-        }
-
-        .logo {
-            position: absolute;
-            top: 30px;
-            left: 45px;
-
-            display: flex;
-            align-items: center;
-            gap: 12px;
-
-            font-weight: bold;
-            letter-spacing: 1.5px;
-        }
-
-        .logo-icon {
-            width: 43px;
-            height: 43px;
-
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            border-radius: 13px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #9cffc8,
-                    #20d89e
-                );
-
-            color: #06251b;
-            font-size: 22px;
-        }
-
-        .sun {
-            position: absolute;
-
-            top: 80px;
-            right: 70px;
-
-            width: 105px;
-            height: 105px;
-
-            border-radius: 50%;
-
-            background:
-                radial-gradient(
-                    circle,
-                    #fff9c8,
-                    #ffe078 45%,
-                    #ffad2f
-                );
-
-            box-shadow:
-                0 0 35px rgba(255,200,80,0.8),
-                0 0 90px rgba(255,190,60,0.35);
-        }
-
-        .tag {
-            color: #62f0b2;
-
-            font-size: 12px;
-            font-weight: bold;
-            letter-spacing: 3px;
-
-            text-transform: uppercase;
-
-            margin-bottom: 18px;
-        }
-
-        .left h1 {
-            font-size: 50px;
-            line-height: 1.08;
-
-            letter-spacing: -2px;
-
-            margin-bottom: 22px;
-        }
-
-        .left h1 span {
-            background:
-                linear-gradient(
-                    90deg,
-                    #a7ffd2,
-                    #ffe08a
-                );
-
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .description {
-            max-width: 520px;
-
-            color: #a3b8b2;
-
-            font-size: 15px;
-            line-height: 1.8;
-        }
-
-        .features {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-
-            gap: 12px;
-
-            margin-top: 40px;
-        }
-
-        .feature {
-            padding: 17px;
-
-            border-radius: 14px;
-
-            background:
-                rgba(255,255,255,0.035);
-
-            border:
-                1px solid rgba(255,255,255,0.07);
-        }
-
-        .feature-icon {
-            font-size: 21px;
-            margin-bottom: 10px;
-        }
-
-        .feature strong {
-            display: block;
-
-            font-size: 14px;
-
-            margin-bottom: 5px;
-        }
-
-        .feature small {
-            color: #718680;
-
-            font-size: 10px;
-
-            line-height: 1.4;
-        }
-
-        /* RIGHT */
-
-        .right {
-            display: flex;
-
-            justify-content: center;
-            align-items: center;
-
-            padding: 50px;
-
-            background:
-                rgba(0,0,0,0.12);
-        }
-
-        .login-box {
-            width: 100%;
-            max-width: 360px;
-        }
-
-        .login-box h2 {
-            font-size: 30px;
-            margin-bottom: 8px;
-        }
-
-        .subtitle {
-            color: #7f9690;
-            font-size: 14px;
-
-            margin-bottom: 30px;
-        }
-
-        .error {
-            padding: 13px;
-
-            margin-bottom: 20px;
-
-            border-radius: 10px;
-
-            background:
-                rgba(255,80,80,0.10);
-
-            border:
-                1px solid rgba(255,80,80,0.20);
-
-            color: #ff8d8d;
-
-            text-align: center;
-
-            font-size: 13px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-
-            margin-bottom: 9px;
-
-            color: #b4c7c2;
-
-            font-size: 12px;
-
-            font-weight: bold;
-
-            letter-spacing: 1px;
-        }
-
-        .input-box {
-            position: relative;
-        }
-
-        .input-icon {
-            position: absolute;
-
-            left: 15px;
-            top: 50%;
-
-            transform: translateY(-50%);
-
-            font-size: 16px;
-
-            opacity: 0.65;
-        }
-
-        .input-box input {
-            width: 100%;
-            height: 50px;
-
-            padding:
-                0 15px 0 45px;
-
-            border-radius: 11px;
-
-            border:
-                1px solid rgba(255,255,255,0.10);
-
-            background:
-                rgba(255,255,255,0.045);
-
-            color: white;
-
-            outline: none;
-
-            font-size: 14px;
-        }
-
-        .input-box input:focus {
-            border-color: #20d89e;
-
-            box-shadow:
-                0 0 0 4px rgba(32,216,158,0.08);
-        }
-
-        .input-box input::placeholder {
-            color: #5e756e;
-        }
-
-        .login-button {
-            width: 100%;
-            height: 52px;
-
-            border: none;
-
-            border-radius: 11px;
-
-            margin-top: 5px;
-
-            background:
-                linear-gradient(
-                    135deg,
-                    #a1ffd0,
-                    #20d89e
-                );
-
-            color: #06251b;
-
-            font-size: 13px;
-
-            font-weight: 800;
-
-            letter-spacing: 0.7px;
-
-            cursor: pointer;
-
-            transition: 0.25s;
-        }
-
-        .login-button:hover {
-            transform: translateY(-2px);
-
-            box-shadow:
-                0 16px 35px
-                rgba(32,216,158,0.28);
-        }
-
-        .demo {
-            margin-top: 25px;
-
-            padding: 15px;
-
-            border-radius: 12px;
-
-            background:
-                rgba(255,255,255,0.03);
-
-            border:
-                1px solid rgba(255,255,255,0.06);
-        }
-
-        .demo-title {
-            color: #718680;
-
-            font-size: 10px;
-
-            font-weight: bold;
-
-            letter-spacing: 1.5px;
-
-            margin-bottom: 9px;
-        }
-
-        .demo-line {
-            display: flex;
-
-            justify-content: space-between;
-
-            margin-top: 6px;
-
-            font-size: 11px;
-        }
-
-        .demo-line span:first-child {
-            color: #718680;
-        }
-
-        .demo-line span:last-child {
-            color: #a4ffd0;
-        }
-
-        .security {
-            display: flex;
-
-            justify-content: center;
-            align-items: center;
-
-            gap: 6px;
-
-            margin-top: 22px;
-
-            color: #61756f;
-
-            font-size: 11px;
-        }
-
-        @media(max-width:850px) {
-
-            body {
-                align-items: flex-start;
-            }
-
-            .container {
-                grid-template-columns: 1fr;
-            }
-
-            .left {
-                min-height: 500px;
-
-                padding:
-                    45px 35px;
-            }
-
-            .right {
-                padding:
-                    45px 30px;
-            }
-
-            .left h1 {
-                font-size: 38px;
-            }
-
-            .sun {
-                width: 75px;
-                height: 75px;
-
-                top: 70px;
-                right: 35px;
-            }
-        }
-
-        @media(max-width:500px) {
-
-            .features {
-                grid-template-columns: 1fr;
-            }
-
-            .left {
-                padding:
-                    40px 25px;
-            }
-
-            .right {
-                padding:
-                    40px 25px;
-            }
-
-            .logo {
-                left: 25px;
-            }
-        }
-
-    </style>
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SolarVision | Login</title>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=Great+Vibes&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: #eee2d2;
+    color: #3e2d24;
+    font-family: "DM Sans", Arial, sans-serif;
+}
+
+/* ================= HEADER ================= */
+
+.header {
+    height: 88px;
+    background: #30221b;
+    color: #f5e7d1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 6%;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.sun-logo {
+    width: 47px;
+    height: 47px;
+    border: 2px solid #d6a45d;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sun-logo::before {
+    content: "";
+    width: 21px;
+    height: 21px;
+    background: #d6a45d;
+    border-radius: 50%;
+}
+
+.logo-text h1 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 30px;
+    font-weight: 600;
+    letter-spacing: 3px;
+}
+
+.logo-text span {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: #cdbca8;
+}
+
+.nav {
+    display: flex;
+    gap: 34px;
+}
+
+.nav a {
+    color: #e8d8c3;
+    text-decoration: none;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+.nav a:hover {
+    color: #d6a45d;
+}
+
+/* ================= MAIN ================= */
+
+.main {
+    min-height: calc(100vh - 138px);
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    position: relative;
+    overflow: hidden;
+}
+
+/* ================= LEFT ================= */
+
+.left {
+    padding: 75px 7% 60px 9%;
+    position: relative;
+    background:
+        radial-gradient(circle at 10% 15%, rgba(214,164,93,.24), transparent 24%),
+        linear-gradient(145deg, #f5eadb, #e7d5c0);
+    overflow: hidden;
+}
+
+.sun-decoration {
+    position: absolute;
+    width: 210px;
+    height: 210px;
+    border: 1px solid rgba(177,133,83,.28);
+    border-radius: 50%;
+    top: -105px;
+    left: -70px;
+}
+
+.sun-decoration::after {
+    content: "";
+    position: absolute;
+    width: 145px;
+    height: 145px;
+    border: 1px dashed rgba(177,133,83,.25);
+    border-radius: 50%;
+    top: 32px;
+    left: 32px;
+}
+
+.content {
+    position: relative;
+    z-index: 2;
+}
+
+.eyebrow {
+    color: #a67640;
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.title {
+    font-family: "Cormorant Garamond", serif;
+    font-size: clamp(50px, 5vw, 76px);
+    line-height: .88;
+    font-weight: 600;
+    letter-spacing: -1px;
+    color: #3d2a20;
+    max-width: 650px;
+}
+
+.title span {
+    color: #a67640;
+}
+
+.script {
+    font-family: "Great Vibes", cursive;
+    color: #a67640;
+    font-size: 34px;
+    margin-top: 25px;
+}
+
+.description {
+    max-width: 510px;
+    line-height: 1.8;
+    color: #715f51;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+/* ================= FEATURES ================= */
+
+.features {
+    display: flex;
+    gap: 38px;
+    margin-top: 42px;
+}
+
+.feature {
+    text-align: center;
+}
+
+.feature-icon {
+    width: 54px;
+    height: 54px;
+    margin: auto;
+    border-radius: 50%;
+    background: #ead5b7;
+    border: 1px solid #d4b78e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #765438;
+    font-size: 21px;
+}
+
+.feature p {
+    margin-top: 10px;
+    font-size: 11px;
+    color: #5d493d;
+    line-height: 1.4;
+}
+
+/* ================= SOLAR IMAGE AREA ================= */
+
+.solar-scene {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 190px;
+    background:
+        linear-gradient(to top, rgba(91,65,45,.18), transparent),
+        linear-gradient(165deg, transparent 50%, rgba(165,125,77,.13) 50%);
+    overflow: hidden;
+}
+
+.mountain {
+    position: absolute;
+    bottom: -70px;
+    width: 80%;
+    height: 160px;
+    background: #c6ad91;
+    clip-path: polygon(
+        0 70%,
+        15% 45%,
+        28% 65%,
+        43% 30%,
+        57% 62%,
+        70% 40%,
+        84% 64%,
+        100% 35%,
+        100% 100%,
+        0 100%
+    );
+    opacity: .55;
+}
+
+.sun-orb {
+    position: absolute;
+    width: 85px;
+    height: 85px;
+    background: #d9aa62;
+    border-radius: 50%;
+    bottom: 60px;
+    left: 18%;
+    box-shadow: 0 0 55px rgba(211,164,88,.55);
+}
+
+/* ================= POLAROID CARDS ================= */
+
+.polaroids {
+    position: absolute;
+    right: 8%;
+    bottom: 20px;
+    z-index: 4;
+    display: flex;
+    align-items: flex-end;
+}
+
+.photo {
+    width: 125px;
+    height: 155px;
+    background: #fffaf1;
+    padding: 8px;
+    box-shadow: 0 12px 25px rgba(70,48,34,.20);
+}
+
+.photo.one {
+    transform: rotate(-8deg);
+}
+
+.photo.two {
+    transform: rotate(7deg) translateY(-20px);
+    margin-left: -25px;
+}
+
+.photo-inner {
+    width: 100%;
+    height: 115px;
+    background:
+        linear-gradient(145deg, #a9794d, #d9bc91 50%, #7e6045);
+    position: relative;
+    overflow: hidden;
+}
+
+.photo-inner::after {
+    content: "";
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background: rgba(255,216,145,.75);
+    top: 20px;
+    right: 15px;
+}
+
+.photo-caption {
+    font-family: "Cormorant Garamond", serif;
+    text-align: center;
+    font-size: 13px;
+    margin-top: 5px;
+    color: #614a3b;
+}
+
+/* ================= RIGHT ================= */
+
+.right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 55px 7%;
+    background: #e7d7c5;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 500px;
+    background: #f8f0e4;
+    border: 1px solid #d8c4aa;
+    border-radius: 25px;
+    padding: 48px 50px;
+    box-shadow:
+        0 25px 55px rgba(65,45,31,.14),
+        inset 0 1px rgba(255,255,255,.7);
+}
+
+.card-heading {
+    text-align: center;
+}
+
+.welcome {
+    font-family: "Great Vibes", cursive;
+    font-size: 38px;
+    color: #ae7b3e;
+}
+
+.card-heading h2 {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 32px;
+    color: #3d2a20;
+    margin-top: 4px;
+}
+
+.divider {
+    width: 90px;
+    height: 1px;
+    background: #c49a62;
+    margin: 19px auto 30px;
+    position: relative;
+}
+
+.divider::after {
+    content: "☼";
+    position: absolute;
+    left: 50%;
+    top: -13px;
+    transform: translateX(-50%);
+    background: #f8f0e4;
+    padding: 0 10px;
+    color: #ad7b3f;
+}
+
+/* ================= FORM ================= */
+
+.form-group {
+    margin-bottom: 21px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: #604a3b;
+    margin-bottom: 8px;
+    letter-spacing: .5px;
+}
+
+.input-box {
+    position: relative;
+}
+
+.input-symbol {
+    position: absolute;
+    left: 17px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #a2784c;
+    font-size: 15px;
+}
+
+input {
+    width: 100%;
+    height: 51px;
+    border: 1px solid #cdbba6;
+    border-radius: 11px;
+    background: #fbf6ed;
+    padding: 0 17px 0 45px;
+    outline: none;
+    color: #3e2d24;
+    font-size: 13px;
+    font-family: "DM Sans", sans-serif;
+    transition: .25s;
+}
+
+input:focus {
+    border-color: #ae7b3e;
+    box-shadow: 0 0 0 3px rgba(174,123,62,.10);
+    background: #fffaf3;
+}
+
+input::placeholder {
+    color: #a99a8b;
+}
+
+/* ================= MESSAGES ================= */
+
+.message {
+    padding: 12px 14px;
+    border-radius: 9px;
+    margin-bottom: 20px;
+    font-size: 12px;
+}
+
+.error {
+    background: #f7e2dd;
+    color: #934d42;
+    border: 1px solid #e5bdb5;
+}
+
+.success {
+    background: #e5eee1;
+    color: #4d704d;
+    border: 1px solid #c1d5bb;
+}
+
+/* ================= BUTTON ================= */
+
+.login-button {
+    width: 100%;
+    height: 53px;
+    border: none;
+    border-radius: 11px;
+    background: #4a3428;
+    color: #f7ead7;
+    font-family: "DM Sans", sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: .3s;
+    box-shadow: 0 10px 20px rgba(74,52,40,.18);
+}
+
+.login-button:hover {
+    background: #684a37;
+    transform: translateY(-2px);
+    box-shadow: 0 14px 25px rgba(74,52,40,.25);
+}
+
+/* ================= REGISTER ================= */
+
+.register {
+    text-align: center;
+    margin-top: 25px;
+    color: #806f62;
+    font-size: 12px;
+}
+
+.register a {
+    color: #a16f37;
+    font-weight: 700;
+    text-decoration: none;
+    border-bottom: 1px solid #c7a77a;
+    padding-bottom: 2px;
+    margin-left: 4px;
+}
+
+.register a:hover {
+    color: #5f4331;
+}
+
+/* ================= FOOTER ================= */
+
+.footer {
+    height: 50px;
+    background: #30221b;
+    color: #b9a997;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width: 950px) {
+
+    .main {
+        grid-template-columns: 1fr;
+    }
+
+    .left {
+        min-height: 650px;
+        padding: 65px 8%;
+    }
+
+    .right {
+        padding: 55px 8%;
+    }
+
+    .nav {
+        display: none;
+    }
+
+    .polaroids {
+        right: 10%;
+    }
+}
+
+@media(max-width: 600px) {
+
+    .header {
+        height: 75px;
+        padding: 0 25px;
+    }
+
+    .logo-text h1 {
+        font-size: 23px;
+    }
+
+    .logo-text span {
+        font-size: 8px;
+    }
+
+    .sun-logo {
+        width: 40px;
+        height: 40px;
+    }
+
+    .left {
+        min-height: 590px;
+        padding: 50px 25px;
+    }
+
+    .title {
+        font-size: 47px;
+    }
+
+    .features {
+        gap: 18px;
+    }
+
+    .polaroids {
+        display: none;
+    }
+
+    .solar-scene {
+        height: 130px;
+    }
+
+    .right {
+        padding: 35px 20px;
+    }
+
+    .login-card {
+        padding: 35px 25px;
+    }
+
+    .card-heading h2 {
+        font-size: 27px;
+    }
+}
+
+</style>
 </head>
-
 
 <body>
 
+<!-- HEADER -->
 
-    <div class="container">
+<header class="header">
 
+    <div class="logo-area">
 
-        <!-- LEFT SIDE -->
+        <div class="sun-logo"></div>
 
-        <section class="left">
-
-
-            <div class="logo">
-
-                <div class="logo-icon">
-                    ☀
-                </div>
-
-                <span>
-                    SOLARVISION
-                </span>
-
-            </div>
-
-
-            <div class="sun"></div>
-
-
-            <div>
-
-                <div class="tag">
-                    Intelligent Energy
-                </div>
-
-
-                <h1>
-
-                    Predict the Sun.<br>
-
-                    <span>
-                        Power the Future.
-                    </span>
-
-                </h1>
-
-
-                <p class="description">
-
-                    A smart solar power generation
-                    forecasting platform that transforms
-                    weather and historical generation data
-                    into intelligent energy predictions.
-
-                </p>
-
-
-                <div class="features">
-
-
-                    <div class="feature">
-
-                        <div class="feature-icon">
-                            🤖
-                        </div>
-
-                        <strong>
-                            AI Forecast
-                        </strong>
-
-                        <small>
-                            Intelligent generation prediction
-                        </small>
-
-                    </div>
-
-
-                    <div class="feature">
-
-                        <div class="feature-icon">
-                            📊
-                        </div>
-
-                        <strong>
-                            Analytics
-                        </strong>
-
-                        <small>
-                            Monitor plant performance
-                        </small>
-
-                    </div>
-
-
-                    <div class="feature">
-
-                        <div class="feature-icon">
-                            ⚡
-                        </div>
-
-                        <strong>
-                            Energy
-                        </strong>
-
-                        <small>
-                            Smarter clean energy management
-                        </small>
-
-                    </div>
-
-
-                </div>
-
-            </div>
-
-
-        </section>
-
-
-        <!-- RIGHT SIDE -->
-
-        <section class="right">
-
-
-            <div class="login-box">
-
-
-                <h2>
-                    Welcome back
-                </h2>
-
-
-                <p class="subtitle">
-                    Sign in to your energy dashboard
-                </p>
-
-
-                {% if error %}
-
-                <div class="error">
-
-                    ⚠ {{ error }}
-
-                </div>
-
-                {% endif %}
-
-
-                <form method="POST" action="/">
-
-
-                    <div class="form-group">
-
-                        <label>
-                            USERNAME
-                        </label>
-
-
-                        <div class="input-box">
-
-                            <span class="input-icon">
-                                👤
-                            </span>
-
-
-                            <input
-                                type="text"
-                                name="username"
-                                placeholder="Enter your username"
-                                autocomplete="username"
-                                required>
-
-                        </div>
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label>
-                            PASSWORD
-                        </label>
-
-
-                        <div class="input-box">
-
-                            <span class="input-icon">
-                                🔐
-                            </span>
-
-
-                            <input
-                                type="password"
-                                name="password"
-                                placeholder="Enter your password"
-                                autocomplete="current-password"
-                                required>
-
-                        </div>
-
-                    </div>
-
-
-                    <button
-                        type="submit"
-                        class="login-button">
-
-                        SIGN IN TO PLATFORM →
-
-                    </button>
-
-
-                </form>
-
-
-                <div class="demo">
-
-                    <div class="demo-title">
-                        DEMO ACCOUNTS
-                    </div>
-
-
-                    <div class="demo-line">
-
-                        <span>
-                            Admin
-                        </span>
-
-                        <span>
-                            admin / admin123
-                        </span>
-
-                    </div>
-
-
-                    <div class="demo-line">
-
-                        <span>
-                            User
-                        </span>
-
-                        <span>
-                            user / user123
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <div class="security">
-
-                    🔒 Secure platform access
-
-                </div>
-
-
-            </div>
-
-
-        </section>
-
+        <div class="logo-text">
+            <h1>SOLARVISION</h1>
+            <span>SOLAR GENERATION FORECASTING</span>
+        </div>
 
     </div>
 
+    <nav class="nav">
+        <a href="/">HOME</a>
+        <a href="/">SECURE</a>
+        <a href="/">INSIGHTS</a>
+        <a href="/">ACCESS</a>
+    </nav>
+
+</header>
+
+
+<!-- MAIN -->
+
+<main class="main">
+
+    <!-- LEFT -->
+
+    <section class="left">
+
+        <div class="sun-decoration"></div>
+
+        <div class="content">
+
+            <div class="eyebrow">
+                Intelligent Renewable Energy
+            </div>
+
+            <h2 class="title">
+                SOLAR ENERGY<br>
+                <span>FORECASTING</span>
+            </h2>
+
+            <div class="script">
+                Powering a cleaner tomorrow
+            </div>
+
+            <p class="description">
+                SolarVision empowers you with intelligent forecasting,
+                meaningful insights, and reliable data to help understand
+                and optimize solar energy generation.
+            </p>
+
+
+            <div class="features">
+
+                <div class="feature">
+
+                    <div class="feature-icon">
+                        ☼
+                    </div>
+
+                    <p>
+                        Smart<br>
+                        Forecasting
+                    </p>
+
+                </div>
+
+
+                <div class="feature">
+
+                    <div class="feature-icon">
+                        ↗
+                    </div>
+
+                    <p>
+                        Energy<br>
+                        Insights
+                    </p>
+
+                </div>
+
+
+                <div class="feature">
+
+                    <div class="feature-icon">
+                        ◇
+                    </div>
+
+                    <p>
+                        Secure<br>
+                        Platform
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- BACKGROUND LANDSCAPE -->
+
+        <div class="solar-scene">
+
+            <div class="sun-orb"></div>
+
+            <div class="mountain"></div>
+
+        </div>
+
+
+        <!-- POLAROID STYLE DECORATION -->
+
+        <div class="polaroids">
+
+            <div class="photo one">
+
+                <div class="photo-inner"></div>
+
+                <div class="photo-caption">
+                    Solar Energy
+                </div>
+
+            </div>
+
+
+            <div class="photo two">
+
+                <div class="photo-inner"></div>
+
+                <div class="photo-caption">
+                    Clean Future
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- RIGHT -->
+
+    <section class="right">
+
+        <div class="login-card">
+
+            <div class="card-heading">
+
+                <div class="welcome">
+                    Welcome Back
+                </div>
+
+                <h2>
+                    SIGN IN TO SOLARVISION
+                </h2>
+
+                <div class="divider"></div>
+
+            </div>
+
+
+            {% if error %}
+
+            <div class="message error">
+                {{ error }}
+            </div>
+
+            {% endif %}
+
+
+            {% if request.args.get('registered') %}
+
+            <div class="message success">
+                Account created successfully.
+                You can now sign in.
+            </div>
+
+            {% endif %}
+
+
+            <form method="POST" action="/">
+
+                <div class="form-group">
+
+                    <label for="username">
+                        Username
+                    </label>
+
+                    <div class="input-box">
+
+                        <span class="input-symbol">○</span>
+
+                        <input
+                            type="text"
+                            id="username"
+                            name="username"
+                            placeholder="Enter your username"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <div class="input-box">
+
+                        <span class="input-symbol">◇</span>
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            placeholder="Enter your password"
+                            required
+                        >
+
+                    </div>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="login-button"
+                >
+                    SIGN IN
+                </button>
+
+            </form>
+
+
+            <div class="register">
+
+                New to SolarVision?
+
+                <a href="/register">
+                    Create an account
+                </a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<footer class="footer">
+    © 2026 SolarVision. Intelligent Solar Energy Forecasting.
+</footer>
 
 </body>
-
 </html>
