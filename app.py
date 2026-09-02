@@ -88,6 +88,9 @@ def valid_password(password):
 # LOGIN
 # =========================
 
+create_database()
+
+
 @app.route("/", methods=["GET", "POST"])
 def login():
 
