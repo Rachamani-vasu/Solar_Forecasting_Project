@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SolarVision | Solar Data Center</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#eee2d2;
+    color:#3e2d24;
+    font-family:"Segoe UI",Arial,sans-serif;
+}
+
+.header{
+    height:82px;
+    background:#30221b;
+    color:#f4e6d2;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 5%;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:13px;
+}
+
+.sun{
+    width:42px;
+    height:42px;
+    border:2px solid #d6a45d;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.sun:after{
+    content:"";
+    width:18px;
+    height:18px;
+    background:#d6a45d;
+    border-radius:50%;
+}
+
+.logo h1{
+    font-family:Georgia,serif;
+    font-size:25px;
+    letter-spacing:2px;
+}
+
+.logo span{
+    display:block;
+    color:#bfae9b;
+    font-size:9px;
+    letter-spacing:2px;
+}
+
+.back{
+    color:#e7d5bf;
+    text-decoration:none;
+    border:1px solid #82644d;
+    padding:9px 17px;
+    border-radius:20px;
+    font-size:11px;
+}
+
+.back:hover{
+    background:#4b3428;
+}
+
+.container{
+    max-width:1300px;
+    margin:auto;
+    padding:45px 25px;
+}
+
+.heading small{
+    color:#a67640;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    font-size:11px;
+}
+
+.heading h2{
+    font-family:Georgia,serif;
+    font-size:44px;
+    color:#3d2a20;
+    margin:10px 0;
+}
+
+.heading p{
+    color:#806f62;
+    font-size:13px;
+    line-height:1.7;
+    max-width:750px;
+}
+
+.upload-card{
+    margin-top:30px;
+    background:#f8f0e4;
+    border:1px solid #d8c5ae;
+    border-radius:22px;
+    padding:35px;
+    box-shadow:0 12px 30px rgba(65,45,31,.08);
+}
+
+.upload-card h3{
+    font-family:Georgia,serif;
+    font-size:27px;
+    color:#3d2a20;
+    margin-bottom:8px;
+}
+
+.upload-card > p{
+    color:#806f62;
+    font-size:12px;
+    margin-bottom:25px;
+}
+
+.upload-box{
+    border:2px dashed #c9b092;
+    border-radius:17px;
+    background:#f3e7d7;
+    padding:38px;
+    text-align:center;
+}
+
+.upload-icon{
+    width:65px;
+    height:65px;
+    border:1px solid #c5a47b;
+    border-radius:50%;
+    margin:0 auto 15px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#a67640;
+    font-size:28px;
+}
+
+.upload-box h4{
+    font-family:Georgia,serif;
+    font-size:21px;
+    color:#4a3428;
+    margin-bottom:6px;
+}
+
+.upload-box p{
+    color:#8a7768;
+    font-size:11px;
+    margin-bottom:20px;
+}
+
+.file-input{
+    display:none;
+}
+
+.choose{
+    display:inline-block;
+    background:#4a3428;
+    color:#f7ead7;
+    padding:13px 23px;
+    border-radius:9px;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:1px;
+    cursor:pointer;
+    border:0;
+}
+
+.choose:hover{
+    background:#684a37;
+}
+
+.result{
+    margin-top:30px;
+}
+
+.result-title{
+    font-family:Georgia,serif;
+    font-size:27px;
+    color:#3d2a20;
+    margin-bottom:18px;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:15px;
+}
+
+.stat{
+    background:#f8f0e4;
+    border:1px solid #d8c5ae;
+    border-radius:15px;
+    padding:20px;
+}
+
+.stat small{
+    display:block;
+    color:#8a7768;
+    text-transform:uppercase;
+    font-size:9px;
+    letter-spacing:1px;
+}
+
+.stat strong{
+    display:block;
+    font-family:Georgia,serif;
+    color:#4a3428;
+    font-size:25px;
+    margin-top:8px;
+}
+
+.good{
+    color:#61734f !important;
+}
+
+.validation{
+    margin-top:22px;
+    background:#f8f0e4;
+    border:1px solid #c9b092;
+    border-radius:18px;
+    padding:27px;
+}
+
+.validation-title{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-family:Georgia,serif;
+    font-size:24px;
+    color:#4a3428;
+    margin-bottom:20px;
+}
+
+.status{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    background:#dce3d1;
+    color:#61734f;
+    font-family:Arial,sans-serif;
+    font-weight:bold;
+}
+
+.checks{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+}
+
+.check{
+    background:#eee0ce;
+    border:1px solid #d6c0a5;
+    border-radius:10px;
+    padding:13px 15px;
+    font-size:11px;
+    color:#604a3b;
+}
+
+.check span{
+    color:#61734f;
+    font-weight:bold;
+    margin-right:7px;
+}
+
+.failed{
+    background:#f5dfda;
+    border-color:#ddb8ae;
+}
+
+.failed span{
+    color:#a44e42;
+}
+
+.columns-card{
+    margin-top:20px;
+    background:#f8f0e4;
+    border:1px solid #d8c5ae;
+    border-radius:18px;
+    padding:25px;
+}
+
+.columns-card h3{
+    font-family:Georgia,serif;
+    color:#4a3428;
+    font-size:21px;
+    margin-bottom:15px;
+}
+
+.columns{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+}
+
+.column{
+    background:#e8d7c1;
+    border:1px solid #d2b99a;
+    color:#604a3b;
+    padding:8px 13px;
+    border-radius:20px;
+    font-size:10px;
+}
+
+.preview{
+    margin-top:20px;
+    background:#f8f0e4;
+    border:1px solid #d8c5ae;
+    border-radius:18px;
+    padding:25px;
+    overflow-x:auto;
+}
+
+.preview h3{
+    font-family:Georgia,serif;
+    color:#4a3428;
+    font-size:21px;
+    margin-bottom:15px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:950px;
+}
+
+th{
+    background:#e5d3bc;
+    color:#604a3b;
+    text-align:left;
+    padding:12px;
+    font-size:10px;
+    letter-spacing:.7px;
+    white-space:nowrap;
+}
+
+td{
+    padding:12px;
+    border-bottom:1px solid #dfcfbd;
+    color:#6d5b4e;
+    font-size:10px;
+    white-space:nowrap;
+}
+
+tr:hover td{
+    background:#f1e5d5;
+}
+
+.error{
+    margin-top:20px;
+    padding:15px;
+    border-radius:10px;
+    background:#f7e2dd;
+    border:1px solid #e5bdb5;
+    color:#934d42;
+    font-size:12px;
+}
+
+.footer{
+    text-align:center;
+    padding:30px;
+    color:#9b897a;
+    font-size:10px;
+}
+
+@media(max-width:1000px){
+
+    .stats{
+        grid-template-columns:repeat(3,1fr);
+    }
+
+}
+
+@media(max-width:650px){
+
+    .header{
+        padding:0 20px;
+    }
+
+    .back{
+        display:none;
+    }
+
+    .container{
+        padding:35px 18px;
+    }
+
+    .heading h2{
+        font-size:34px;
+    }
+
+    .upload-card{
+        padding:25px;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .checks{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<header class="header">
+
+    <div class="logo">
+
+        <div class="sun"></div>
+
+        <div>
+
+            <h1>SOLARVISION</h1>
+
+            <span>
+                SOLAR GENERATION FORECASTING
+            </span>
+
+        </div>
+
+    </div>
+
+    <a href="/admin" class="back">
+        ADMIN DASHBOARD
+    </a>
+
+</header>
+
+
+<main class="container">
+
+
+<section class="heading">
+
+    <small>
+        Module 2 • Data Management
+    </small>
+
+    <h2>
+        Solar Data Center
+    </h2>
+
+    <p>
+        Upload, validate and inspect your solar forecasting
+        dataset before sending it to the machine learning
+        forecasting pipeline.
+    </p>
+
+</section>
+
+
+<section class="upload-card">
+
+    <h3>
+        Upload Solar Dataset
+    </h3>
+
+    <p>
+        Select your solar forecasting CSV file.
+    </p>
+
+
+    <form
+        method="POST"
+        action="/upload-dataset"
+        enctype="multipart/form-data"
+    >
+
+        <div class="upload-box">
+
+            <div class="upload-icon">
+                ↑
+            </div>
+
+            <h4>
+                Select CSV Dataset
+            </h4>
+
+            <p>
+                Supported format: CSV
+            </p>
+
+            <label
+                for="dataset"
+                class="choose"
+            >
+                CHOOSE CSV FILE
+            </label>
+
+            <input
+                type="file"
+                id="dataset"
+                name="dataset"
+                class="file-input"
+                accept=".csv"
+                required
+            >
+
+            <div
+                id="filename"
+                style="
+                    margin-top:15px;
+                    color:#8a7768;
+                    font-size:11px;
+                "
+            >
+            </div>
+
+            <button
+                type="submit"
+                class="choose"
+                style="margin-top:12px;"
+            >
+                UPLOAD DATASET
+            </button>
+
+        </div>
+
+    </form>
+
+</section>
+
+
+{% if dataset %}
+
+    {% if dataset.error %}
+
+        <div class="error">
+            {{ dataset.error }}
+        </div>
+
+    {% else %}
+
+
+    <section class="result">
+
+        <div class="result-title">
+            Dataset Analysis
+        </div>
+
+
+        <div class="stats">
+
+            <div class="stat">
+                <small>Records</small>
+                <strong>
+                    {{ dataset.rows }}
+                </strong>
+            </div>
+
+            <div class="stat">
+                <small>Columns</small>
+                <strong>
+                    {{ dataset.columns }}
+                </strong>
+            </div>
+
+            <div class="stat">
+                <small>Missing Values</small>
+                <strong class="good">
+                    {{ dataset.missing }}
+                </strong>
+            </div>
+
+            <div class="stat">
+                <small>Duplicates</small>
+                <strong>
+                    {{ dataset.duplicates }}
+                </strong>
+            </div>
+
+            <div class="stat">
+                <small>Data Quality</small>
+                <strong class="good">
+                    {{ dataset.quality }}
+                </strong>
+            </div>
+
+        </div>
+
+
+        <!-- VALIDATION -->
+
+        <div class="validation">
+
+            <div class="validation-title">
+
+                <div class="status">
+                    {% if dataset.validation_passed %}
+                        ✓
+                    {% else %}
+                        !
+                    {% endif %}
+                </div>
+
+                Dataset Validation —
+                {{ dataset.validation_status }}
+
+            </div>
+
+
+            <div class="checks">
+
+                <div class="check
+                    {% if dataset.missing_columns %}failed{% endif %}">
+
+                    <span>
+                        {% if dataset.missing_columns %}✕{% else %}✓{% endif %}
+                    </span>
+
+                    Required columns present
+
+                </div>
+
+
+                <div class="check
+                    {% if dataset.missing > 0 %}failed{% endif %}">
+
+                    <span>
+                        {% if dataset.missing > 0 %}✕{% else %}✓{% endif %}
+                    </span>
+
+                    No missing values
+
+                </div>
+
+
+                <div class="check
+                    {% if dataset.duplicates > 0 %}failed{% endif %}">
+
+                    <span>
+                        {% if dataset.duplicates > 0 %}✕{% else %}✓{% endif %}
+                    </span>
+
+                    No duplicate rows
+
+                </div>
+
+
+                <div class="check
+                    {% if not dataset.timestamp_valid %}failed{% endif %}">
+
+                    <span>
+                        {% if dataset.timestamp_valid %}✓{% else %}✕{% endif %}
+                    </span>
+
+                    Timestamp format valid
+
+                </div>
+
+
+                <div class="check
+                    {% if dataset.invalid_numeric_columns %}failed{% endif %}">
+
+                    <span>
+                        {% if dataset.invalid_numeric_columns %}✕{% else %}✓{% endif %}
+                    </span>
+
+                    Numeric values valid
+
+                </div>
+
+            </div>
+
+
+            {% if dataset.validation_errors %}
+
+            <div class="error">
+
+                <strong>
+                    Validation issues:
+                </strong>
+
+                <br><br>
+
+                {% for error in dataset.validation_errors %}
+
+                    • {{ error }}<br>
+
+                {% endfor %}
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+
+        
+        <!-- DATA PREPARATION -->
+
+        <div class="validation" style="margin-top:22px;">
+
+            <div class="validation-title">
+
+                <div class="status">
+                    {% if dataset.prepared %}
+                        ✓
+                    {% else %}
+                        →
+                    {% endif %}
+                </div>
+
+                Data Preparation
+                {% if dataset.prepared %}
+                    — READY
+                {% else %}
+                    — NEXT STEP
+                {% endif %}
+
+            </div>
+
+            {% if dataset.prepared %}
+
+                <div class="checks">
+
+                    <div class="check">
+                        <span>✓</span>
+                        Timestamp processed
+                    </div>
+
+                    <div class="check">
+                        <span>✓</span>
+                        Features selected
+                    </div>
+
+                    <div class="check">
+                        <span>✓</span>
+                        Target selected
+                    </div>
+
+                    <div class="check">
+                        <span>✓</span>
+                        Numeric values verified
+                    </div>
+
+                </div>
+
+                <div class="stats" style="margin-top:20px;">
+
+                    <div class="stat">
+                        <small>Prepared Records</small>
+                        <strong>
+                            {{ dataset.prepared_records }}
+                        </strong>
+                    </div>
+
+                    <div class="stat">
+                        <small>Features</small>
+                        <strong>
+                            {{ dataset.feature_count }}
+                        </strong>
+                    </div>
+
+                    <div class="stat">
+                        <small>Target</small>
+                        <strong>
+                            {{ dataset.target_column }}
+                        </strong>
+                    </div>
+
+                    <div class="stat">
+                        <small>Status</small>
+                        <strong class="good">
+                            READY
+                        </strong>
+                    </div>
+
+                </div>
+
+                <div class="columns-card" style="margin-top:20px;">
+
+                    <h3>
+                        Model Features
+                    </h3>
+
+                    <div class="columns">
+
+                        {% for column in dataset.feature_columns %}
+
+                            <div class="column">
+                                {{ column }}
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                    <div style="
+                        margin-top:20px;
+                        color:#806f62;
+                        font-size:11px;
+                    ">
+
+                        <strong style="color:#4a3428;">
+                            Forecast Target:
+                        </strong>
+
+                        {{ dataset.target_column }}
+
+                    </div>
+
+                </div>
+
+            {% else %}
+
+                <p style="
+                    color:#806f62;
+                    font-size:12px;
+                    line-height:1.7;
+                    margin-bottom:18px;
+                ">
+
+                    The validated dataset is ready to be transformed
+                    into model-ready features and a forecasting target.
+
+                </p>
+
+                <form
+                    method="POST"
+                    action="/prepare-dataset"
+                >
+
+                    <button
+                        type="submit"
+                        class="choose"
+                    >
+                        PREPARE DATASET
+                    </button>
+
+                </form>
+
+            {% endif %}
+
+        </div>
+
+
+<!-- COLUMNS -->
+
+        <div class="columns-card">
+
+            <h3>
+                Dataset Columns
+            </h3>
+
+            <div class="columns">
+
+                {% for column in dataset.column_names %}
+
+                    <div class="column">
+                        {{ column }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+
+        <!-- PREVIEW -->
+
+        <div class="preview">
+
+            <h3>
+                Dataset Preview — First 10 Records
+            </h3>
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        {% for column in dataset.column_names %}
+
+                            <th>
+                                {{ column }}
+                            </th>
+
+                        {% endfor %}
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    {% for row in dataset.preview %}
+
+                        <tr>
+
+                            {% for value in row %}
+
+                                <td>
+                                    {{ value }}
+                                </td>
+
+                            {% endfor %}
+
+                        </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+    {% endif %}
+
+{% endif %}
+
+
+</main>
+
+
+<footer class="footer">
+
+    © 2026 SolarVision • Intelligent Solar Energy Forecasting
+
+</footer>
+
+
+<script>
+
+document.getElementById("dataset").addEventListener(
+    "change",
+    function(){
+
+        const file = this.files[0];
+
+        if(file){
+
+            document.getElementById("filename").textContent =
+                "Selected: " + file.name;
+
+        }
+
+    }
+);
+
+</script>
+
+</body>
+
+</html>

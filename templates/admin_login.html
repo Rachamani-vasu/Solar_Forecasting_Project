@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Login | SolarVision</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #eee2d2;
+    color: #3e2d24;
+}
+
+header {
+    height: 76px;
+    background: #3d3029;
+    color: #f8f0e4;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 45px;
+}
+
+.logo {
+    font-family: Georgia, serif;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+nav {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+nav a {
+    color: #f8f0e4;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+nav a:hover {
+    color: #d6a45d;
+}
+
+.main {
+    min-height: calc(100vh - 76px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+}
+
+.card {
+    width: 430px;
+    background: #f8f0e4;
+    padding: 45px;
+    border-radius: 18px;
+    border: 1px solid #d5c3b0;
+    box-shadow: 0 18px 45px rgba(61,48,41,.15);
+}
+
+.tag {
+    color: #806f62;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+h1 {
+    font-family: Georgia, serif;
+    font-size: 38px;
+    margin: 0 0 10px;
+}
+
+.subtitle {
+    color: #806f62;
+    line-height: 1.5;
+    margin-bottom: 30px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #d5c3b0;
+    border-radius: 7px;
+    background: #fffaf3;
+    margin-bottom: 18px;
+    font-size: 14px;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 7px;
+    background: #4a3428;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #735743;
+}
+
+.error {
+    background: #ead1c8;
+    color: #7b3325;
+    padding: 12px;
+    border-radius: 7px;
+    margin-bottom: 18px;
+}
+
+.security {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 12px;
+    color: #806f62;
+}
+
+.back {
+    text-align: center;
+    margin-top: 18px;
+}
+
+.back a {
+    color: #735743;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+SolarVision
+</div>
+
+<nav>
+<a href="/">Home</a>
+</nav>
+
+</header>
+
+<div class="main">
+
+<div class="card">
+
+<div class="tag">
+Restricted Access
+</div>
+
+<h1>Administrator Login</h1>
+
+<div class="subtitle">
+Secure access to SolarVision administration and system management.
+</div>
+
+{% if error %}
+<div class="error">
+{{ error }}
+</div>
+{% endif %}
+
+<form method="POST" action="/admin-login">
+
+<label>Administrator Username</label>
+
+<input
+type="text"
+name="username"
+placeholder="Enter administrator username"
+required
+>
+
+<label>Password</label>
+
+<input
+type="password"
+name="password"
+placeholder="Enter administrator password"
+required
+>
+
+<button type="submit">
+ADMIN LOGIN
+</button>
+
+</form>
+
+<div class="security">
+🔒 Protected administrator access
+</div>
+
+<div class="back">
+<a href="/">
+← Back to User Login
+</a>
+</div>
+
+</div>
+
+</div>
+
+</body>
+</html>

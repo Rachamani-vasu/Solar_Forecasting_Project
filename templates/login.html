@@ -4,577 +4,560 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>SolarVision | Login</title>
+<title>SolarVision | Solar Energy Forecasting</title>
 
 <style>
-
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=Great+Vibes&display=swap');
-
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    min-height: 100vh;
-    background: #eee2d2;
-    color: #3e2d24;
-    font-family: "DM Sans", Arial, sans-serif;
+html, body {
+    margin: 0;
+    width: 100%;
+    min-height: 100%;
 }
 
-/* ================= HEADER ================= */
+body {
+    font-family: Arial, sans-serif;
+    background: #eee2d2;
+    color: #3e2d24;
+}
 
-.header {
-    height: 88px;
-    background: #30221b;
-    color: #f5e7d1;
+/* HEADER */
+
+header {
+    height: 90px;
+    background: #30221c;
+    color: #f8f0e4;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 6%;
 }
 
-.logo-area {
+.brand {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 16px;
 }
 
 .sun-logo {
-    width: 47px;
-    height: 47px;
+    width: 50px;
+    height: 50px;
     border: 2px solid #d6a45d;
     border-radius: 50%;
-    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
 }
 
 .sun-logo::before {
     content: "";
     width: 21px;
     height: 21px;
-    background: #d6a45d;
+    background: #e0aa59;
     border-radius: 50%;
+    box-shadow:
+        0 -19px 0 -9px #d6a45d,
+        0 19px 0 -9px #d6a45d,
+        19px 0 0 -9px #d6a45d,
+        -19px 0 0 -9px #d6a45d;
 }
 
-.logo-text h1 {
-    font-family: "Cormorant Garamond", serif;
+.brand-text h2 {
+    margin: 0;
+    font-family: Georgia, serif;
     font-size: 30px;
-    font-weight: 600;
-    letter-spacing: 3px;
+    letter-spacing: 2px;
+    font-weight: normal;
 }
 
-.logo-text span {
-    font-size: 10px;
-    letter-spacing: 3px;
-    color: #cdbca8;
+.brand-text p {
+    margin: 5px 0 0;
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: #d8c7b4;
 }
 
-.nav {
+nav {
     display: flex;
-    gap: 34px;
+    align-items: center;
+    gap: 36px;
 }
 
-.nav a {
-    color: #e8d8c3;
+nav a {
+    color: #f4e8da;
     text-decoration: none;
     font-size: 13px;
     letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: .3s;
 }
 
-.nav a:hover {
+nav a:hover {
     color: #d6a45d;
 }
 
-/* ================= MAIN ================= */
+.admin-link {
+    border: 1px solid #d6a45d;
+    padding: 11px 20px;
+    border-radius: 4px;
+    color: #d6a45d !important;
+}
+
+.admin-link:hover {
+    background: #d6a45d;
+    color: #30221c !important;
+}
+
+/* MAIN */
 
 .main {
     min-height: calc(100vh - 138px);
-    display: grid;
-    grid-template-columns: 1.05fr 0.95fr;
-    position: relative;
-    overflow: hidden;
+    display: flex;
 }
 
-/* ================= LEFT ================= */
+/* LEFT SIDE */
 
-.left {
-    padding: 75px 7% 60px 9%;
+.hero {
+    width: 53%;
+    min-height: 700px;
+    padding: 80px 7%;
     position: relative;
+    overflow: hidden;
     background:
-        radial-gradient(circle at 10% 15%, rgba(214,164,93,.24), transparent 24%),
-        linear-gradient(145deg, #f5eadb, #e7d5c0);
-    overflow: hidden;
+        linear-gradient(
+            165deg,
+            #f4e4cf 0%,
+            #ead7bd 65%,
+            #d6c0a5 100%
+        );
 }
 
-.sun-decoration {
-    position: absolute;
-    width: 210px;
-    height: 210px;
-    border: 1px solid rgba(177,133,83,.28);
-    border-radius: 50%;
-    top: -105px;
-    left: -70px;
-}
-
-.sun-decoration::after {
+.hero::before {
     content: "";
     position: absolute;
-    width: 145px;
-    height: 145px;
-    border: 1px dashed rgba(177,133,83,.25);
+    width: 220px;
+    height: 220px;
+    border: 1px dashed rgba(180, 126, 53, .35);
     border-radius: 50%;
-    top: 32px;
-    left: 32px;
+    top: -80px;
+    left: -80px;
 }
 
-.content {
+.hero::after {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 180px;
+    background: rgba(255,255,255,.18);
+    transform: rotate(-15deg);
+    bottom: -100px;
+    left: -50px;
+}
+
+.hero-content {
     position: relative;
     z-index: 2;
-}
-
-.eyebrow {
-    color: #a67640;
-    font-size: 12px;
-    letter-spacing: 4px;
-    text-transform: uppercase;
-    margin-bottom: 20px;
-}
-
-.title {
-    font-family: "Cormorant Garamond", serif;
-    font-size: clamp(50px, 5vw, 76px);
-    line-height: .88;
-    font-weight: 600;
-    letter-spacing: -1px;
-    color: #3d2a20;
     max-width: 650px;
 }
 
-.title span {
-    color: #a67640;
+.eyebrow {
+    color: #ad6f2c;
+    font-size: 13px;
+    letter-spacing: 5px;
+    font-weight: bold;
+    margin-bottom: 25px;
+}
+
+.hero h1 {
+    margin: 0;
+    font-family: Georgia, serif;
+    font-size: clamp(48px, 5vw, 76px);
+    line-height: .98;
+    font-weight: normal;
+    letter-spacing: -2px;
+}
+
+.hero h1 span {
+    color: #b17b3e;
 }
 
 .script {
-    font-family: "Great Vibes", cursive;
-    color: #a67640;
-    font-size: 34px;
-    margin-top: 25px;
+    margin-top: 27px;
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 28px;
+    color: #ad7235;
 }
 
 .description {
-    max-width: 510px;
+    margin-top: 32px;
+    max-width: 560px;
+    color: #705d4f;
     line-height: 1.8;
-    color: #715f51;
-    margin-top: 20px;
-    font-size: 14px;
+    font-size: 15px;
 }
 
-/* ================= FEATURES ================= */
+/* FEATURE ICONS */
 
 .features {
     display: flex;
     gap: 38px;
-    margin-top: 42px;
+    margin-top: 45px;
 }
 
 .feature {
     text-align: center;
+    width: 85px;
 }
 
 .feature-icon {
-    width: 54px;
-    height: 54px;
+    width: 58px;
+    height: 58px;
     margin: auto;
+    border: 1px solid #d6a45d;
     border-radius: 50%;
-    background: #ead5b7;
-    border: 1px solid #d4b78e;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #765438;
-    font-size: 21px;
+    font-size: 24px;
+    color: #76573d;
+    background: rgba(255,255,255,.16);
 }
 
 .feature p {
-    margin-top: 10px;
+    margin: 10px 0 0;
     font-size: 11px;
-    color: #5d493d;
     line-height: 1.4;
+    color: #604d40;
 }
 
-/* ================= SOLAR IMAGE AREA ================= */
-
-.solar-scene {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 190px;
-    background:
-        linear-gradient(to top, rgba(91,65,45,.18), transparent),
-        linear-gradient(165deg, transparent 50%, rgba(165,125,77,.13) 50%);
-    overflow: hidden;
-}
-
-.mountain {
-    position: absolute;
-    bottom: -70px;
-    width: 80%;
-    height: 160px;
-    background: #c6ad91;
-    clip-path: polygon(
-        0 70%,
-        15% 45%,
-        28% 65%,
-        43% 30%,
-        57% 62%,
-        70% 40%,
-        84% 64%,
-        100% 35%,
-        100% 100%,
-        0 100%
-    );
-    opacity: .55;
-}
-
-.sun-orb {
-    position: absolute;
-    width: 85px;
-    height: 85px;
-    background: #d9aa62;
-    border-radius: 50%;
-    bottom: 60px;
-    left: 18%;
-    box-shadow: 0 0 55px rgba(211,164,88,.55);
-}
-
-/* ================= POLAROID CARDS ================= */
+/* DECORATIVE POLAROIDS */
 
 .polaroids {
     position: absolute;
-    right: 8%;
-    bottom: 20px;
-    z-index: 4;
-    display: flex;
-    align-items: flex-end;
+    right: 5%;
+    bottom: 45px;
+    width: 300px;
+    height: 220px;
+    z-index: 3;
 }
 
 .photo {
-    width: 125px;
-    height: 155px;
-    background: #fffaf1;
-    padding: 8px;
-    box-shadow: 0 12px 25px rgba(70,48,34,.20);
+    position: absolute;
+    width: 150px;
+    height: 185px;
+    background: #fffaf2;
+    padding: 10px 10px 30px;
+    box-shadow: 0 10px 25px rgba(60,40,25,.18);
 }
 
-.photo.one {
+.photo-one {
+    right: 100px;
+    top: 20px;
     transform: rotate(-8deg);
 }
 
-.photo.two {
-    transform: rotate(7deg) translateY(-20px);
-    margin-left: -25px;
+.photo-two {
+    right: 0;
+    top: 0;
+    transform: rotate(7deg);
 }
 
-.photo-inner {
+.photo-image {
     width: 100%;
-    height: 115px;
+    height: 130px;
     background:
-        linear-gradient(145deg, #a9794d, #d9bc91 50%, #7e6045);
-    position: relative;
-    overflow: hidden;
+        radial-gradient(circle at 50% 45%, #f5ce82 0 27%, #d5a85f 28% 48%, #a57b4e 49% 100%);
 }
 
-.photo-inner::after {
-    content: "";
-    position: absolute;
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    background: rgba(255,216,145,.75);
-    top: 20px;
-    right: 15px;
-}
-
-.photo-caption {
-    font-family: "Cormorant Garamond", serif;
+.photo p {
+    font-family: Georgia, serif;
     text-align: center;
-    font-size: 13px;
-    margin-top: 5px;
-    color: #614a3b;
+    font-size: 11px;
+    margin: 9px 0 0;
 }
 
-/* ================= RIGHT ================= */
+/* RIGHT LOGIN */
 
-.right {
+.login-area {
+    width: 47%;
+    min-height: 700px;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 55px 7%;
-    background: #e7d7c5;
+    background: #e6d9c4;
 }
 
 .login-card {
     width: 100%;
-    max-width: 500px;
-    background: #f8f0e4;
-    border: 1px solid #d8c4aa;
-    border-radius: 25px;
-    padding: 48px 50px;
-    box-shadow:
-        0 25px 55px rgba(65,45,31,.14),
-        inset 0 1px rgba(255,255,255,.7);
-}
-
-.card-heading {
-    text-align: center;
+    max-width: 520px;
+    background: #faf2e7;
+    border: 1px solid #d5c3b0;
+    border-radius: 20px;
+    padding: 48px 52px;
+    box-shadow: 0 20px 55px rgba(61,48,41,.14);
 }
 
 .welcome {
-    font-family: "Great Vibes", cursive;
+    text-align: center;
+    font-family: Georgia, serif;
+    font-style: italic;
     font-size: 38px;
-    color: #ae7b3e;
+    color: #b67c38;
+    margin-bottom: 10px;
 }
 
-.card-heading h2 {
-    font-family: "Cormorant Garamond", serif;
-    font-size: 32px;
-    color: #3d2a20;
-    margin-top: 4px;
+.login-title {
+    text-align: center;
+    font-family: Georgia, serif;
+    font-size: 29px;
+    margin: 0;
+    letter-spacing: .5px;
 }
 
 .divider {
-    width: 90px;
-    height: 1px;
-    background: #c49a62;
-    margin: 19px auto 30px;
-    position: relative;
+    text-align: center;
+    color: #b17b3e;
+    font-size: 22px;
+    margin: 16px 0 32px;
+    letter-spacing: 9px;
 }
 
-.divider::after {
-    content: "☼";
-    position: absolute;
-    left: 50%;
-    top: -13px;
-    transform: translateX(-50%);
-    background: #f8f0e4;
-    padding: 0 10px;
-    color: #ad7b3f;
-}
-
-/* ================= FORM ================= */
-
-.form-group {
-    margin-bottom: 21px;
-}
-
-.form-group label {
+label {
     display: block;
-    font-size: 12px;
-    font-weight: 600;
-    color: #604a3b;
-    margin-bottom: 8px;
-    letter-spacing: .5px;
+    margin-bottom: 9px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #49362c;
 }
 
 .input-box {
     position: relative;
 }
 
-.input-symbol {
+.input-icon {
     position: absolute;
     left: 17px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #a2784c;
+    top: 14px;
+    color: #b17b3e;
     font-size: 15px;
 }
 
 input {
     width: 100%;
-    height: 51px;
-    border: 1px solid #cdbba6;
-    border-radius: 11px;
-    background: #fbf6ed;
-    padding: 0 17px 0 45px;
-    outline: none;
+    height: 53px;
+    padding: 0 17px 0 47px;
+    margin-bottom: 22px;
+    border: 1px solid #d3c0aa;
+    border-radius: 9px;
+    background: #fffaf3;
     color: #3e2d24;
-    font-size: 13px;
-    font-family: "DM Sans", sans-serif;
-    transition: .25s;
+    font-size: 14px;
+    outline: none;
+    transition: .3s;
 }
 
 input:focus {
-    border-color: #ae7b3e;
-    box-shadow: 0 0 0 3px rgba(174,123,62,.10);
-    background: #fffaf3;
+    border-color: #b17b3e;
+    box-shadow: 0 0 0 3px rgba(177,123,62,.10);
 }
 
 input::placeholder {
-    color: #a99a8b;
+    color: #a99887;
 }
 
-/* ================= MESSAGES ================= */
-
-.message {
-    padding: 12px 14px;
-    border-radius: 9px;
-    margin-bottom: 20px;
-    font-size: 12px;
-}
-
-.error {
-    background: #f7e2dd;
-    color: #934d42;
-    border: 1px solid #e5bdb5;
-}
-
-.success {
-    background: #e5eee1;
-    color: #4d704d;
-    border: 1px solid #c1d5bb;
-}
-
-/* ================= BUTTON ================= */
-
-.login-button {
+button {
     width: 100%;
-    height: 53px;
+    height: 56px;
     border: none;
-    border-radius: 11px;
-    background: #4a3428;
-    color: #f7ead7;
-    font-family: "DM Sans", sans-serif;
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 2px;
+    border-radius: 9px;
+    background: #51372b;
+    color: #fffaf2;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 3px;
     cursor: pointer;
     transition: .3s;
-    box-shadow: 0 10px 20px rgba(74,52,40,.18);
+    box-shadow: 0 9px 20px rgba(65,43,32,.16);
 }
 
-.login-button:hover {
-    background: #684a37;
-    transform: translateY(-2px);
-    box-shadow: 0 14px 25px rgba(74,52,40,.25);
+button:hover {
+    background: #38251d;
+    transform: translateY(-1px);
 }
-
-/* ================= REGISTER ================= */
 
 .register {
     text-align: center;
-    margin-top: 25px;
+    margin-top: 28px;
     color: #806f62;
-    font-size: 12px;
+    font-size: 13px;
 }
 
 .register a {
-    color: #a16f37;
-    font-weight: 700;
-    text-decoration: none;
-    border-bottom: 1px solid #c7a77a;
-    padding-bottom: 2px;
-    margin-left: 4px;
+    color: #9a632c;
+    font-weight: bold;
+    text-decoration: underline;
 }
 
-.register a:hover {
-    color: #5f4331;
+.security {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 11px;
+    color: #8b7969;
+    letter-spacing: .5px;
 }
 
-/* ================= FOOTER ================= */
+.error {
+    background: #ead1c8;
+    color: #7b3325;
+    border: 1px solid #d7b0a4;
+    padding: 12px 14px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    font-size: 13px;
+}
 
-.footer {
-    height: 50px;
-    background: #30221b;
-    color: #b9a997;
+/* FOOTER */
+
+footer {
+    height: 48px;
+    background: #30221c;
+    color: #bba999;
     display: flex;
-    justify-content: center;
     align-items: center;
-    font-size: 10px;
-    letter-spacing: 1px;
+    justify-content: center;
+    font-size: 11px;
+    letter-spacing: .5px;
 }
 
-/* ================= RESPONSIVE ================= */
+/* RESPONSIVE */
 
-@media(max-width: 950px) {
+@media (max-width: 1050px) {
 
-    .main {
-        grid-template-columns: 1fr;
+    header {
+        padding: 0 30px;
     }
 
-    .left {
-        min-height: 650px;
-        padding: 65px 8%;
+    .hero {
+        padding: 65px 5%;
     }
 
-    .right {
-        padding: 55px 8%;
-    }
-
-    .nav {
-        display: none;
-    }
-
-    .polaroids {
-        right: 10%;
-    }
-}
-
-@media(max-width: 600px) {
-
-    .header {
-        height: 75px;
-        padding: 0 25px;
-    }
-
-    .logo-text h1 {
-        font-size: 23px;
-    }
-
-    .logo-text span {
-        font-size: 8px;
-    }
-
-    .sun-logo {
-        width: 40px;
-        height: 40px;
-    }
-
-    .left {
-        min-height: 590px;
-        padding: 50px 25px;
-    }
-
-    .title {
-        font-size: 47px;
-    }
-
-    .features {
-        gap: 18px;
+    .hero h1 {
+        font-size: 55px;
     }
 
     .polaroids {
         display: none;
-    }
-
-    .solar-scene {
-        height: 130px;
-    }
-
-    .right {
-        padding: 35px 20px;
     }
 
     .login-card {
-        padding: 35px 25px;
+        padding: 40px 35px;
+    }
+}
+
+@media (max-width: 800px) {
+
+    header {
+        height: auto;
+        padding: 20px;
+        gap: 20px;
+        flex-direction: column;
     }
 
-    .card-heading h2 {
-        font-size: 27px;
+    nav {
+        gap: 18px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .main {
+        flex-direction: column;
+    }
+
+    .hero,
+    .login-area {
+        width: 100%;
+        min-height: auto;
+    }
+
+    .hero {
+        padding: 55px 30px;
+    }
+
+    .login-area {
+        padding: 40px 20px;
+    }
+
+    .features {
+        justify-content: center;
+    }
+
+    footer {
+        height: auto;
+        padding: 15px;
+    }
+}
+
+/* MOBILE RESPONSIVE IMPROVEMENTS */
+
+@media (max-width: 700px) {
+
+    .main {
+        display: block !important;
+    }
+
+    .hero {
+        padding: 45px 22px !important;
+        min-height: auto !important;
+    }
+
+    .login-area {
+        padding: 30px 18px !important;
+    }
+
+    .login-card {
+        width: 100% !important;
+        box-sizing: border-box !important;
+        padding: 28px 22px !important;
+    }
+
+    header {
+        padding: 16px 18px !important;
+        flex-wrap: wrap !important;
+        gap: 12px !important;
+    }
+
+    header nav {
+        width: 100% !important;
+        justify-content: center !important;
+        flex-wrap: wrap !important;
+    }
+
+    .hero h1 {
+        font-size: 38px !important;
+        line-height: 1.1 !important;
+    }
+
+    section {
+        padding: 48px 18px !important;
+    }
+
+    section h2 {
+        font-size: 28px !important;
+        line-height: 1.2 !important;
+    }
+
+    section > div > div[style*="grid-template-columns"] {
+        grid-template-columns: 1fr !important;
+    }
+
+    footer {
+        padding: 25px 18px !important;
+        text-align: center !important;
     }
 }
 
@@ -583,145 +566,88 @@ input::placeholder {
 
 <body>
 
-<!-- HEADER -->
+<header>
 
-<header class="header">
-
-    <div class="logo-area">
+    <div class="brand">
 
         <div class="sun-logo"></div>
 
-        <div class="logo-text">
-            <h1>SOLARVISION</h1>
-            <span>SOLAR GENERATION FORECASTING</span>
+        <div class="brand-text">
+            <h2>SOLARVISION</h2>
+            <p>SOLAR GENERATION FORECASTING</p>
         </div>
 
     </div>
 
-    <nav class="nav">
-        <a href="/">HOME</a>
-        <a href="/">SECURE</a>
-        <a href="/">INSIGHTS</a>
-        <a href="/">ACCESS</a>
+    <nav>
+        <a href="/">Home</a>
+        <a href="#secure">Secure</a>
+        <a href="#insights">Insights</a>
+        <a href="/admin-login" class="admin-link">ADMIN LOGIN</a>
     </nav>
 
 </header>
 
 
-<!-- MAIN -->
+<div class="main">
 
-<main class="main">
+    <!-- LEFT HERO -->
 
-    <!-- LEFT -->
+    <section class="hero">
 
-    <section class="left">
-
-        <div class="sun-decoration"></div>
-
-        <div class="content">
+        <div class="hero-content">
 
             <div class="eyebrow">
-                Intelligent Renewable Energy
+                INTELLIGENT RENEWABLE ENERGY
             </div>
 
-            <h2 class="title">
+            <h1>
                 SOLAR ENERGY<br>
                 <span>FORECASTING</span>
-            </h2>
+            </h1>
 
             <div class="script">
                 Powering a cleaner tomorrow
             </div>
 
-            <p class="description">
+            <div class="description">
                 SolarVision empowers you with intelligent forecasting,
-                meaningful insights, and reliable data to help understand
-                and optimize solar energy generation.
-            </p>
-
+                meaningful insights, and reliable data to help you
+                understand and optimize solar energy generation.
+            </div>
 
             <div class="features">
 
                 <div class="feature">
-
-                    <div class="feature-icon">
-                        ☼
-                    </div>
-
-                    <p>
-                        Smart<br>
-                        Forecasting
-                    </p>
-
+                    <div class="feature-icon">☼</div>
+                    <p>Smart<br>Forecasting</p>
                 </div>
 
-
                 <div class="feature">
-
-                    <div class="feature-icon">
-                        ↗
-                    </div>
-
-                    <p>
-                        Energy<br>
-                        Insights
-                    </p>
-
+                    <div class="feature-icon">↗</div>
+                    <p>Energy<br>Insights</p>
                 </div>
 
-
                 <div class="feature">
-
-                    <div class="feature-icon">
-                        ◇
-                    </div>
-
-                    <p>
-                        Secure<br>
-                        Platform
-                    </p>
-
+                    <div class="feature-icon">◇</div>
+                    <p>Secure<br>Platform</p>
                 </div>
 
             </div>
 
         </div>
 
-
-        <!-- BACKGROUND LANDSCAPE -->
-
-        <div class="solar-scene">
-
-            <div class="sun-orb"></div>
-
-            <div class="mountain"></div>
-
-        </div>
-
-
-        <!-- POLAROID STYLE DECORATION -->
 
         <div class="polaroids">
 
-            <div class="photo one">
-
-                <div class="photo-inner"></div>
-
-                <div class="photo-caption">
-                    Solar Energy
-                </div>
-
+            <div class="photo photo-one">
+                <div class="photo-image"></div>
+                <p>Solar Energy</p>
             </div>
 
-
-            <div class="photo two">
-
-                <div class="photo-inner"></div>
-
-                <div class="photo-caption">
-                    Clean Future
-                </div>
-
+            <div class="photo photo-two">
+                <div class="photo-image"></div>
+                <p>Clean Future</p>
             </div>
 
         </div>
@@ -729,98 +655,67 @@ input::placeholder {
     </section>
 
 
-    <!-- RIGHT -->
+    <!-- LOGIN -->
 
-    <section class="right">
+    <section class="login-area">
 
         <div class="login-card">
 
-            <div class="card-heading">
-
-                <div class="welcome">
-                    Welcome Back
-                </div>
-
-                <h2>
-                    SIGN IN TO SOLARVISION
-                </h2>
-
-                <div class="divider"></div>
-
+            <div class="welcome">
+                Welcome Back
             </div>
 
+            <h1 class="login-title">
+                SIGN IN TO SOLARVISION
+            </h1>
+
+            <div class="divider">
+                — ☼ —
+            </div>
 
             {% if error %}
 
-            <div class="message error">
+            <div class="error">
                 {{ error }}
             </div>
 
             {% endif %}
 
-
-            {% if request.args.get('registered') %}
-
-            <div class="message success">
-                Account created successfully.
-                You can now sign in.
-            </div>
-
-            {% endif %}
-
-
             <form method="POST" action="/">
 
-                <div class="form-group">
+                <label>
+                    Username
+                </label>
 
-                    <label for="username">
-                        Username
-                    </label>
+                <div class="input-box">
+                    <span class="input-icon">○</span>
 
-                    <div class="input-box">
-
-                        <span class="input-symbol">○</span>
-
-                        <input
-                            type="text"
-                            id="username"
-                            name="username"
-                            placeholder="Enter your username"
-                            required
-                        >
-
-                    </div>
-
+                    <input
+                        type="text"
+                        name="username"
+                        placeholder="Enter your username"
+                        required
+                    >
                 </div>
 
 
-                <div class="form-group">
+                <label>
+                    Password
+                </label>
 
-                    <label for="password">
-                        Password
-                    </label>
+                <div class="input-box">
+                    <span class="input-icon">◇</span>
 
-                    <div class="input-box">
-
-                        <span class="input-symbol">◇</span>
-
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            placeholder="Enter your password"
-                            required
-                        >
-
-                    </div>
-
+                    <input
+                        type="password"
+                        name="password"
+                        placeholder="Enter your password"
+                        required
+                    >
                 </div>
 
 
-                <button
-                    type="submit"
-                    class="login-button"
-                >
+                <button type="submit">
                     SIGN IN
                 </button>
 
@@ -828,23 +723,1292 @@ input::placeholder {
 
 
             <div class="register">
-
                 New to SolarVision?
+                <a href="/register">Create an account</a>
+            </div>
 
-                <a href="/register">
-                    Create an account
-                </a>
 
+            <div class="security">
+                🔒 Secure user access
             </div>
 
         </div>
 
     </section>
 
-</main>
+</div>
 
 
-<footer class="footer">
+
+
+
+<!-- LIVE SYSTEM STATUS -->
+
+<section style="
+    background:#3d3029;
+    padding:18px 7%;
+    border-top:1px solid #5a473c;
+    border-bottom:1px solid #5a473c;
+">
+
+    <div style="
+        max-width:1100px;
+        margin:auto;
+        display:grid;
+        grid-template-columns:repeat(4,1fr);
+        gap:12px;
+        align-items:center;
+    ">
+
+        <div style="
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:9px;
+            color:#f8f0e4;
+            font-size:13px;
+        ">
+            <span style="
+                width:9px;
+                height:9px;
+                background:#75b798;
+                border-radius:50%;
+                display:inline-block;
+                box-shadow:0 0 10px rgba(117,183,152,0.7);
+            "></span>
+            System Online
+        </div>
+
+        <div style="
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:9px;
+            color:#f8f0e4;
+            font-size:13px;
+        ">
+            <span style="font-size:16px;">🤖</span>
+            ML Forecasting Active
+        </div>
+
+        <div style="
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:9px;
+            color:#f8f0e4;
+            font-size:13px;
+        ">
+            <span style="font-size:16px;">📊</span>
+            1,200 Records Analyzed
+        </div>
+
+        <div style="
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            gap:9px;
+            color:#f8f0e4;
+            font-size:13px;
+        ">
+            <span style="font-size:16px;">⚡</span>
+            Forecast Engine Ready
+        </div>
+
+    </div>
+
+</section>
+
+<!-- FEATURES SECTION -->
+
+<section style="
+    background:#eee2d2;
+    padding:55px 7%;
+    border-top:1px solid #d5c3b0;
+">
+
+    <div style="
+        max-width:1100px;
+        margin:auto;
+        text-align:center;
+    ">
+
+        <div style="
+            font-size:11px;
+            letter-spacing:3px;
+            color:#a57b4e;
+            font-weight:bold;
+        ">
+            WHY SOLARVISION
+        </div>
+
+        <h2 style="
+            font-family:Georgia,serif;
+            font-size:32px;
+            margin:10px 0;
+            color:#3e2d24;
+        ">
+            Powerful Features for Smarter Solar Decisions
+        </h2>
+
+        <p style="
+            max-width:700px;
+            margin:0 auto 35px;
+            color:#806f62;
+            line-height:1.6;
+        ">
+            SolarVision combines machine learning, analytics and
+            secure access to make solar energy forecasting simple
+            and useful.
+        </p>
+
+        <div style="
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:18px;
+            text-align:left;
+        ">
+
+            <div style="
+                background:#f8f0e4;
+                border:1px solid #d5c3b0;
+                border-radius:14px;
+                padding:25px;
+                box-shadow:0 8px 20px rgba(62,45,36,0.06);
+            ">
+                <div style="font-size:30px;">☀️</div>
+                <h3 style="
+                    color:#3e2d24;
+                    margin:12px 0 8px;
+                    font-family:Georgia,serif;
+                ">
+                    Smart Solar Forecasting
+                </h3>
+                <p style="
+                    color:#806f62;
+                    line-height:1.6;
+                    margin:0;
+                ">
+                    Predict solar power generation using
+                    machine-learning based forecasting.
+                </p>
+            </div>
+
+            <div style="
+                background:#f8f0e4;
+                border:1px solid #d5c3b0;
+                border-radius:14px;
+                padding:25px;
+                box-shadow:0 8px 20px rgba(62,45,36,0.06);
+            ">
+                <div style="font-size:30px;">📊</div>
+                <h3 style="
+                    color:#3e2d24;
+                    margin:12px 0 8px;
+                    font-family:Georgia,serif;
+                ">
+                    Prediction Analytics
+                </h3>
+                <p style="
+                    color:#806f62;
+                    line-height:1.6;
+                    margin:0;
+                ">
+                    View prediction history and understand
+                    solar generation patterns through analytics.
+                </p>
+            </div>
+
+            <div style="
+                background:#f8f0e4;
+                border:1px solid #d5c3b0;
+                border-radius:14px;
+                padding:25px;
+                box-shadow:0 8px 20px rgba(62,45,36,0.06);
+            ">
+                <div style="font-size:30px;">🔔</div>
+                <h3 style="
+                    color:#3e2d24;
+                    margin:12px 0 8px;
+                    font-family:Georgia,serif;
+                ">
+                    Generation Alerts
+                </h3>
+                <p style="
+                    color:#806f62;
+                    line-height:1.6;
+                    margin:0;
+                ">
+                    Quickly identify important solar generation
+                    conditions with dashboard alerts.
+                </p>
+            </div>
+
+            <div style="
+                background:#f8f0e4;
+                border:1px solid #d5c3b0;
+                border-radius:14px;
+                padding:25px;
+                box-shadow:0 8px 20px rgba(62,45,36,0.06);
+            ">
+                <div style="font-size:30px;">🔐</div>
+                <h3 style="
+                    color:#3e2d24;
+                    margin:12px 0 8px;
+                    font-family:Georgia,serif;
+                ">
+                    Secure User Access
+                </h3>
+                <p style="
+                    color:#806f62;
+                    line-height:1.6;
+                    margin:0;
+                ">
+                    Separate user and administrator access keeps
+                    system features organized and protected.
+                </p>
+            </div>
+
+            <div style="
+                background:#f8f0e4;
+                border:1px solid #d5c3b0;
+                border-radius:14px;
+                padding:25px;
+                box-shadow:0 8px 20px rgba(62,45,36,0.06);
+            ">
+                <div style="font-size:30px;">📈</div>
+                <h3 style="
+                    color:#3e2d24;
+                    margin:12px 0 8px;
+                    font-family:Georgia,serif;
+                ">
+                    Model Performance
+                </h3>
+                <p style="
+                    color:#806f62;
+                    line-height:1.6;
+                    margin:0;
+                ">
+                    Track machine-learning performance using
+                    accuracy and error metrics.
+                </p>
+            </div>
+
+            <div style="
+                background:#f8f0e4;
+                border:1px solid #d5c3b0;
+                border-radius:14px;
+                padding:25px;
+                box-shadow:0 8px 20px rgba(62,45,36,0.06);
+            ">
+                <div style="font-size:30px;">👤</div>
+                <h3 style="
+                    color:#3e2d24;
+                    margin:12px 0 8px;
+                    font-family:Georgia,serif;
+                ">
+                    Personalized Dashboard
+                </h3>
+                <p style="
+                    color:#806f62;
+                    line-height:1.6;
+                    margin:0;
+                ">
+                    Each user gets a dedicated dashboard with
+                    forecasts, history and solar insights.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- HOW SOLARVISION WORKS -->
+
+<section style="
+    background:#f8f0e4;
+    padding:75px 7%;
+    border-top:1px solid #d5c3b0;
+    position:relative;
+    overflow:hidden;
+">
+
+    <div style="
+        position:absolute;
+        width:260px;
+        height:260px;
+        border-radius:50%;
+        border:1px solid rgba(165,123,78,0.18);
+        top:-120px;
+        right:-80px;
+    "></div>
+
+    <div style="
+        position:absolute;
+        width:180px;
+        height:180px;
+        border-radius:50%;
+        background:rgba(213,163,88,0.08);
+        bottom:-80px;
+        left:-60px;
+    "></div>
+
+    <div style="
+        max-width:1100px;
+        margin:auto;
+        text-align:center;
+        position:relative;
+    ">
+
+        <div style="
+            font-size:11px;
+            letter-spacing:3px;
+            color:#a57b4e;
+            font-weight:bold;
+        ">
+            SIMPLE. INTELLIGENT. POWERFUL.
+        </div>
+
+        <h2 style="
+            font-family:Georgia,serif;
+            font-size:36px;
+            margin:12px 0;
+            color:#3e2d24;
+        ">
+            How SolarVision Works
+        </h2>
+
+        <p style="
+            max-width:680px;
+            margin:0 auto 50px;
+            color:#806f62;
+            line-height:1.7;
+        ">
+            From environmental conditions to meaningful solar
+            insights, SolarVision transforms data into intelligent
+            energy forecasts.
+        </p>
+
+        <div style="
+            display:grid;
+            grid-template-columns:repeat(4,1fr);
+            gap:0;
+            position:relative;
+        ">
+
+            <div style="
+                padding:15px;
+                position:relative;
+            ">
+                <div style="
+                    width:70px;
+                    height:70px;
+                    margin:auto;
+                    border-radius:50%;
+                    background:#eee2d2;
+                    border:1px solid #cda76d;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    font-family:Georgia,serif;
+                    font-size:22px;
+                    color:#735743;
+                    box-shadow:0 8px 20px rgba(62,45,36,0.08);
+                ">
+                    01
+                </div>
+
+                <h3 style="
+                    color:#3e2d24;
+                    font-family:Georgia,serif;
+                    margin:20px 0 8px;
+                ">
+                    Enter Conditions
+                </h3>
+
+                <p style="
+                    color:#806f62;
+                    line-height:1.6;
+                    font-size:14px;
+                ">
+                    Provide temperature, irradiance, cloud and
+                    time-related conditions.
+                </p>
+            </div>
+
+            <div style="
+                padding:15px;
+                position:relative;
+            ">
+                <div style="
+                    width:70px;
+                    height:70px;
+                    margin:auto;
+                    border-radius:50%;
+                    background:#735743;
+                    border:1px solid #735743;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    font-family:Georgia,serif;
+                    font-size:22px;
+                    color:#f8f0e4;
+                    box-shadow:0 8px 20px rgba(62,45,36,0.16);
+                ">
+                    02
+                </div>
+
+                <h3 style="
+                    color:#3e2d24;
+                    font-family:Georgia,serif;
+                    margin:20px 0 8px;
+                ">
+                    ML Prediction
+                </h3>
+
+                <p style="
+                    color:#806f62;
+                    line-height:1.6;
+                    font-size:14px;
+                ">
+                    Our Random Forest model processes the selected
+                    conditions and predicts solar power.
+                </p>
+            </div>
+
+            <div style="
+                padding:15px;
+                position:relative;
+            ">
+                <div style="
+                    width:70px;
+                    height:70px;
+                    margin:auto;
+                    border-radius:50%;
+                    background:#eee2d2;
+                    border:1px solid #cda76d;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    font-family:Georgia,serif;
+                    font-size:22px;
+                    color:#735743;
+                    box-shadow:0 8px 20px rgba(62,45,36,0.08);
+                ">
+                    03
+                </div>
+
+                <h3 style="
+                    color:#3e2d24;
+                    font-family:Georgia,serif;
+                    margin:20px 0 8px;
+                ">
+                    Analyze Results
+                </h3>
+
+                <p style="
+                    color:#806f62;
+                    line-height:1.6;
+                    font-size:14px;
+                ">
+                    Understand whether expected generation is low,
+                    moderate or high.
+                </p>
+            </div>
+
+            <div style="
+                padding:15px;
+                position:relative;
+            ">
+                <div style="
+                    width:70px;
+                    height:70px;
+                    margin:auto;
+                    border-radius:50%;
+                    background:#735743;
+                    border:1px solid #735743;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    font-family:Georgia,serif;
+                    font-size:22px;
+                    color:#f8f0e4;
+                    box-shadow:0 8px 20px rgba(62,45,36,0.16);
+                ">
+                    04
+                </div>
+
+                <h3 style="
+                    color:#3e2d24;
+                    font-family:Georgia,serif;
+                    margin:20px 0 8px;
+                ">
+                    Smarter Decisions
+                </h3>
+
+                <p style="
+                    color:#806f62;
+                    line-height:1.6;
+                    font-size:14px;
+                ">
+                    Use forecasting insights to better understand
+                    solar energy generation.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PREMIUM VALUE SECTION -->
+
+<section style="
+    background:#3d3029;
+    padding:70px 7%;
+    color:#f8f0e4;
+">
+
+    <div style="
+        max-width:1100px;
+        margin:auto;
+        display:grid;
+        grid-template-columns:1.1fr 1fr;
+        gap:60px;
+        align-items:center;
+    ">
+
+        <div>
+
+            <div style="
+                font-size:11px;
+                letter-spacing:3px;
+                color:#d6a85f;
+                font-weight:bold;
+            ">
+                THE SOLARVISION EXPERIENCE
+            </div>
+
+            <h2 style="
+                font-family:Georgia,serif;
+                font-size:40px;
+                line-height:1.15;
+                margin:15px 0 20px;
+                font-weight:normal;
+            ">
+                Turning Solar Data<br>
+                Into <span style="color:#d6a85f;">Energy Intelligence.</span>
+            </h2>
+
+            <p style="
+                color:#d8c8b8;
+                line-height:1.8;
+                max-width:560px;
+            ">
+                SolarVision brings forecasting, analytics, system
+                monitoring and secure access together in one
+                intelligent solar energy platform.
+            </p>
+
+            <div style="
+                margin-top:28px;
+                display:inline-block;
+                padding:12px 22px;
+                border:1px solid #a57b4e;
+                border-radius:30px;
+                color:#e3bf82;
+                font-size:13px;
+                letter-spacing:1px;
+            ">
+                CLEAN ENERGY • SMART TECHNOLOGY
+            </div>
+
+        </div>
+
+        <div style="
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:14px;
+        ">
+
+            <div style="
+                padding:28px 20px;
+                border:1px solid rgba(213,195,176,0.2);
+                border-radius:14px;
+                background:rgba(248,240,228,0.06);
+            ">
+                <div style="font-size:27px;">☀</div>
+                <h3 style="
+                    font-family:Georgia,serif;
+                    margin:12px 0 7px;
+                    font-weight:normal;
+                ">
+                    Renewable
+                </h3>
+                <p style="
+                    color:#cbbcad;
+                    font-size:13px;
+                    line-height:1.5;
+                    margin:0;
+                ">
+                    Supporting a cleaner energy future.
+                </p>
+            </div>
+
+            <div style="
+                padding:28px 20px;
+                border:1px solid rgba(213,195,176,0.2);
+                border-radius:14px;
+                background:rgba(248,240,228,0.06);
+            ">
+                <div style="font-size:27px;">◈</div>
+                <h3 style="
+                    font-family:Georgia,serif;
+                    margin:12px 0 7px;
+                    font-weight:normal;
+                ">
+                    Intelligent
+                </h3>
+                <p style="
+                    color:#cbbcad;
+                    font-size:13px;
+                    line-height:1.5;
+                    margin:0;
+                ">
+                    Machine learning powered forecasting.
+                </p>
+            </div>
+
+            <div style="
+                padding:28px 20px;
+                border:1px solid rgba(213,195,176,0.2);
+                border-radius:14px;
+                background:rgba(248,240,228,0.06);
+            ">
+                <div style="font-size:27px;">⌁</div>
+                <h3 style="
+                    font-family:Georgia,serif;
+                    margin:12px 0 7px;
+                    font-weight:normal;
+                ">
+                    Insightful
+                </h3>
+                <p style="
+                    color:#cbbcad;
+                    font-size:13px;
+                    line-height:1.5;
+                    margin:0;
+                ">
+                    Clear analytics for better understanding.
+                </p>
+            </div>
+
+            <div style="
+                padding:28px 20px;
+                border:1px solid rgba(213,195,176,0.2);
+                border-radius:14px;
+                background:rgba(248,240,228,0.06);
+            ">
+                <div style="font-size:27px;">✦</div>
+                <h3 style="
+                    font-family:Georgia,serif;
+                    margin:12px 0 7px;
+                    font-weight:normal;
+                ">
+                    Future Ready
+                </h3>
+                <p style="
+                    color:#cbbcad;
+                    font-size:13px;
+                    line-height:1.5;
+                    margin:0;
+                ">
+                    Designed for smarter solar decisions.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- AI INTELLIGENCE SECTION -->
+
+<section style="
+    background:#f8f0e4;
+    padding:75px 7%;
+    border-top:1px solid #d5c3b0;
+">
+
+    <div style="
+        max-width:1100px;
+        margin:auto;
+        display:grid;
+        grid-template-columns:1fr 1.2fr;
+        gap:55px;
+        align-items:center;
+    ">
+
+        <div>
+
+            <div style="
+                font-size:11px;
+                letter-spacing:3px;
+                color:#a57b4e;
+                font-weight:bold;
+            ">
+                POWERED BY MACHINE LEARNING
+            </div>
+
+            <h2 style="
+                font-family:Georgia,serif;
+                font-size:38px;
+                line-height:1.2;
+                color:#3e2d24;
+                margin:12px 0 18px;
+            ">
+                Meet the Intelligence Behind SolarVision
+            </h2>
+
+            <p style="
+                color:#806f62;
+                line-height:1.8;
+                margin-bottom:25px;
+            ">
+                SolarVision uses a Random Forest regression model
+                to learn relationships between environmental
+                conditions and solar power generation.
+            </p>
+
+            <div style="
+                display:inline-block;
+                padding:11px 20px;
+                border-radius:25px;
+                background:#735743;
+                color:#f8f0e4;
+                font-size:13px;
+                letter-spacing:1px;
+            ">
+                AI-POWERED FORECASTING
+            </div>
+
+        </div>
+
+        <div style="
+            display:grid;
+            grid-template-columns:1fr 1fr;
+            gap:15px;
+        ">
+
+            <div style="
+                background:#eee2d2;
+                border:1px solid #d5c3b0;
+                border-radius:14px;
+                padding:25px;
+            ">
+                <div style="
+                    font-size:28px;
+                    margin-bottom:12px;
+                ">
+                    🤖
+                </div>
+
+                <div style="
+                    font-family:Georgia,serif;
+                    font-size:27px;
+                    font-weight:bold;
+                    color:#735743;
+                ">
+                    Random Forest
+                </div>
+
+                <p style="
+                    color:#806f62;
+                    margin:7px 0 0;
+                    font-size:14px;
+                ">
+                    Regression Model
+                </p>
+            </div>
+
+            <div style="
+                background:#eee2d2;
+                border:1px solid #d5c3b0;
+                border-radius:14px;
+                padding:25px;
+            ">
+                <div style="
+                    font-size:28px;
+                    margin-bottom:12px;
+                ">
+                    📈
+                </div>
+
+                <div style="
+                    font-family:Georgia,serif;
+                    font-size:27px;
+                    font-weight:bold;
+                    color:#735743;
+                ">
+                    98.58%
+                </div>
+
+                <p style="
+                    color:#806f62;
+                    margin:7px 0 0;
+                    font-size:14px;
+                ">
+                    R² Model Score
+                </p>
+            </div>
+
+            <div style="
+                background:#eee2d2;
+                border:1px solid #d5c3b0;
+                border-radius:14px;
+                padding:25px;
+            ">
+                <div style="
+                    font-size:28px;
+                    margin-bottom:12px;
+                ">
+                    🌳
+                </div>
+
+                <div style="
+                    font-family:Georgia,serif;
+                    font-size:27px;
+                    font-weight:bold;
+                    color:#735743;
+                ">
+                    200
+                </div>
+
+                <p style="
+                    color:#806f62;
+                    margin:7px 0 0;
+                    font-size:14px;
+                ">
+                    Decision Trees
+                </p>
+            </div>
+
+            <div style="
+                background:#eee2d2;
+                border:1px solid #d5c3b0;
+                border-radius:14px;
+                padding:25px;
+            ">
+                <div style="
+                    font-size:28px;
+                    margin-bottom:12px;
+                ">
+                    ⚡
+                </div>
+
+                <div style="
+                    font-family:Georgia,serif;
+                    font-size:27px;
+                    font-weight:bold;
+                    color:#735743;
+                ">
+                    8
+                </div>
+
+                <p style="
+                    color:#806f62;
+                    margin:7px 0 0;
+                    font-size:14px;
+                ">
+                    Prediction Features
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- WHAT YOU CAN DO -->
+
+<section style="
+    background:#eee2d2;
+    padding:70px 7%;
+    border-top:1px solid #d5c3b0;
+">
+
+    <div style="
+        max-width:1100px;
+        margin:auto;
+        text-align:center;
+    ">
+
+        <div style="
+            font-size:11px;
+            letter-spacing:3px;
+            color:#a57b4e;
+            font-weight:bold;
+        ">
+            EXPLORE SOLARVISION
+        </div>
+
+        <h2 style="
+            font-family:Georgia,serif;
+            font-size:36px;
+            color:#3e2d24;
+            margin:12px 0 15px;
+        ">
+            Everything You Need in One Place
+        </h2>
+
+        <p style="
+            max-width:680px;
+            margin:0 auto 40px;
+            color:#806f62;
+            line-height:1.7;
+        ">
+            From forecasting solar generation to understanding
+            performance, SolarVision puts powerful tools at your fingertips.
+        </p>
+
+        <div style="
+            display:grid;
+            grid-template-columns:repeat(4,1fr);
+            gap:16px;
+            text-align:left;
+        ">
+
+            <div style="
+                background:#f8f0e4;
+                border:1px solid #d5c3b0;
+                border-radius:16px;
+                padding:28px 22px;
+                transition:transform .2s;
+            ">
+                <div style="font-size:32px;">🔮</div>
+
+                <h3 style="
+                    font-family:Georgia,serif;
+                    color:#3e2d24;
+                    margin:15px 0 8px;
+                ">
+                    Predict Solar Power
+                </h3>
+
+                <p style="
+                    color:#806f62;
+                    font-size:14px;
+                    line-height:1.6;
+                    margin:0;
+                ">
+                    Enter environmental conditions and receive
+                    an intelligent solar power prediction.
+                </p>
+            </div>
+
+            <div style="
+                background:#f8f0e4;
+                border:1px solid #d5c3b0;
+                border-radius:16px;
+                padding:28px 22px;
+            ">
+                <div style="font-size:32px;">📊</div>
+
+                <h3 style="
+                    font-family:Georgia,serif;
+                    color:#3e2d24;
+                    margin:15px 0 8px;
+                ">
+                    Explore Generation
+                </h3>
+
+                <p style="
+                    color:#806f62;
+                    font-size:14px;
+                    line-height:1.6;
+                    margin:0;
+                ">
+                    Understand hourly solar generation patterns
+                    with clear visual analytics.
+                </p>
+            </div>
+
+            <div style="
+                background:#f8f0e4;
+                border:1px solid #d5c3b0;
+                border-radius:16px;
+                padding:28px 22px;
+            ">
+                <div style="font-size:32px;">🔔</div>
+
+                <h3 style="
+                    font-family:Georgia,serif;
+                    color:#3e2d24;
+                    margin:15px 0 8px;
+                ">
+                    Monitor Alerts
+                </h3>
+
+                <p style="
+                    color:#806f62;
+                    font-size:14px;
+                    line-height:1.6;
+                    margin:0;
+                ">
+                    Quickly see important generation conditions
+                    through the SolarVision dashboard.
+                </p>
+            </div>
+
+            <div style="
+                background:#f8f0e4;
+                border:1px solid #d5c3b0;
+                border-radius:16px;
+                padding:28px 22px;
+            ">
+                <div style="font-size:32px;">🛠️</div>
+
+                <h3 style="
+                    font-family:Georgia,serif;
+                    color:#3e2d24;
+                    margin:15px 0 8px;
+                ">
+                    Manage the System
+                </h3>
+
+                <p style="
+                    color:#806f62;
+                    font-size:14px;
+                    line-height:1.6;
+                    margin:0;
+                ">
+                    Administrators can manage users, datasets,
+                    forecasts and model performance.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- PROJECT HIGHLIGHTS -->
+
+<section style="
+    background:#f8f0e4;
+    padding:45px 7%;
+    border-top:1px solid #d5c3b0;
+">
+
+    <div style="
+        max-width:1100px;
+        margin:auto;
+        text-align:center;
+    ">
+
+        <div style="
+            font-size:11px;
+            letter-spacing:3px;
+            color:#a57b4e;
+            font-weight:bold;
+        ">
+            SOLARVISION AT A GLANCE
+        </div>
+
+        <h2 style="
+            font-family:Georgia,serif;
+            font-size:30px;
+            margin:10px 0;
+            color:#3e2d24;
+        ">
+            Intelligent Solar Forecasting
+        </h2>
+
+        <p style="
+            max-width:650px;
+            margin:0 auto 28px;
+            color:#806f62;
+            line-height:1.6;
+        ">
+            A machine-learning powered platform designed to
+            understand solar generation and provide useful
+            forecasting insights.
+        </p>
+
+        <div style="
+            display:grid;
+            grid-template-columns:repeat(4,1fr);
+            gap:15px;
+        ">
+
+            <div style="
+                padding:22px 12px;
+                border:1px solid #d5c3b0;
+                border-radius:12px;
+                background:#eee2d2;
+            ">
+                <div style="
+                    font-family:Georgia,serif;
+                    font-size:28px;
+                    font-weight:bold;
+                    color:#735743;
+                ">
+                    1,200
+                </div>
+                <div style="margin-top:6px;color:#806f62;">
+                    Dataset Records
+                </div>
+            </div>
+
+            <div style="
+                padding:22px 12px;
+                border:1px solid #d5c3b0;
+                border-radius:12px;
+                background:#eee2d2;
+            ">
+                <div style="
+                    font-family:Georgia,serif;
+                    font-size:28px;
+                    font-weight:bold;
+                    color:#735743;
+                ">
+                    8
+                </div>
+                <div style="margin-top:6px;color:#806f62;">
+                    ML Features
+                </div>
+            </div>
+
+            <div style="
+                padding:22px 12px;
+                border:1px solid #d5c3b0;
+                border-radius:12px;
+                background:#eee2d2;
+            ">
+                <div style="
+                    font-family:Georgia,serif;
+                    font-size:28px;
+                    font-weight:bold;
+                    color:#735743;
+                ">
+                    98.58%
+                </div>
+                <div style="margin-top:6px;color:#806f62;">
+                    Model R² Score
+                </div>
+            </div>
+
+            <div style="
+                padding:22px 12px;
+                border:1px solid #d5c3b0;
+                border-radius:12px;
+                background:#eee2d2;
+            ">
+                <div style="
+                    font-family:Georgia,serif;
+                    font-size:28px;
+                    font-weight:bold;
+                    color:#735743;
+                ">
+                    200
+                </div>
+                <div style="margin-top:6px;color:#806f62;">
+                    Random Forest Trees
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FINAL CALL TO ACTION -->
+
+<section style="
+    background:#3d3029;
+    padding:80px 7%;
+    text-align:center;
+    color:#f8f0e4;
+    border-top:1px solid #5a473c;
+">
+
+    <div style="
+        max-width:760px;
+        margin:auto;
+    ">
+
+        <div style="
+            font-size:11px;
+            letter-spacing:3px;
+            color:#d6a85f;
+            font-weight:bold;
+            margin-bottom:14px;
+        ">
+            START YOUR SOLAR JOURNEY
+        </div>
+
+        <h2 style="
+            font-family:Georgia,serif;
+            font-size:42px;
+            line-height:1.2;
+            font-weight:normal;
+            margin:0 0 18px;
+        ">
+            Ready to Explore
+            <span style="color:#d6a85f;">Solar Intelligence?</span>
+        </h2>
+
+        <p style="
+            color:#d8c8b8;
+            line-height:1.8;
+            max-width:650px;
+            margin:0 auto 32px;
+        ">
+            Create your SolarVision account and discover
+            machine-learning powered solar forecasting,
+            analytics and intelligent energy insights.
+        </p>
+
+        <a href="/register" style="
+            display:inline-block;
+            padding:15px 32px;
+            background:#d6a85f;
+            color:#3d3029;
+            text-decoration:none;
+            border-radius:30px;
+            font-weight:bold;
+            letter-spacing:1px;
+            font-size:14px;
+            box-shadow:0 10px 25px rgba(0,0,0,0.18);
+        ">
+            GET STARTED →
+        </a>
+
+        <div style="
+            margin-top:25px;
+            color:#a99483;
+            font-size:12px;
+        ">
+            Intelligent forecasting • Clear insights • Cleaner future
+        </div>
+
+    </div>
+
+</section>
+
+<footer>
     © 2026 SolarVision. Intelligent Solar Energy Forecasting.
 </footer>
 

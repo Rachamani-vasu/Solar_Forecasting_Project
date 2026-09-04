@@ -1,0 +1,9 @@
+{
+    "mae": 6.0674,
+    "rmse": 14.8933,
+    "r2": 0.9858,
+    "records": 1200,
+    "training_records": 960,
+    "testing_records": 240,
+    "trees": 200
+}

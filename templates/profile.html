@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>My Profile | SolarVision</title>
+
+<style>
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #eee2d2;
+    color: #3e2d24;
+}
+
+header {
+    background: #3d3029;
+    color: #f8f0e4;
+    padding: 22px 45px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: Georgia, serif;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+header a {
+    color: white;
+    text-decoration: none;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 50px 25px;
+}
+
+h1, h2 {
+    font-family: Georgia, serif;
+}
+
+.card {
+    background: #f8f0e4;
+    padding: 35px;
+    border: 1px solid #d5c3b0;
+    border-radius: 16px;
+}
+
+.profile-row {
+    padding: 18px 0;
+    border-bottom: 1px solid #d5c3b0;
+}
+
+.profile-row:last-child {
+    border-bottom: none;
+}
+
+.label {
+    font-size: 13px;
+    color: #806f62;
+    margin-bottom: 6px;
+}
+
+.value {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.button {
+    display: inline-block;
+    margin-top: 25px;
+    padding: 14px 22px;
+    background: #735743;
+    color: white;
+    text-decoration: none;
+    border-radius: 7px;
+}
+
+.button:hover {
+    background: #4a3428;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">
+SolarVision
+</div>
+
+<a href="/user">
+Back to Dashboard
+</a>
+
+</header>
+
+<div class="container">
+
+<h1>My Profile</h1>
+
+<p style="color:#806f62;">
+Your SolarVision account information.
+</p>
+
+<div class="card">
+
+<div class="profile-row">
+<div class="label">Full Name</div>
+<div class="value">{{ user["full_name"] }}</div>
+</div>
+
+<div class="profile-row">
+<div class="label">Username</div>
+<div class="value">{{ user["username"] }}</div>
+</div>
+
+<div class="profile-row">
+<div class="label">Email</div>
+<div class="value">{{ user["email"] }}</div>
+</div>
+
+<div class="profile-row">
+<div class="label">Account Role</div>
+<div class="value">{{ user["role"]|capitalize }}</div>
+</div>
+
+<a href="/user" class="button">
+Back to Dashboard
+</a>
+
+</div>
+
+</div>
+
+</body>
+</html>
