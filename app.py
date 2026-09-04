@@ -46,6 +46,16 @@ def create_database():
         )
     """)
 
+    # Create prediction history table
+    connection.execute("""
+        CREATE TABLE IF NOT EXISTS predictions (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            user_id INTEGER NOT NULL,
+            prediction REAL NOT NULL,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    """)
+
     # Create default admin if no admin exists
     admin_count = connection.execute(
         "SELECT COUNT(*) FROM users WHERE role = 'admin'"
