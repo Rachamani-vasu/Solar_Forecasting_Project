@@ -3,3 +3,17 @@ __pycache__/
 *.pyc
 .DS_Store
 solar_users.db
+
+# Jupyter temporary files
+.ipynb_checkpoints/
+
+# Local notebooks
+*.ipynb
+
+# Python backup files
+app_before_*.py
+train_model_before_*.py
+templates/*_backup.html
+templates/*_before_*.html
+templates/*_before_*.py
+templates/user_dashboard_before_*.html
