@@ -1,5 +1,5 @@
 # SolarVision — Project Structure
-
+```
 Solar_Forecasting_Project/
 ├── app.py
 ├── train_model.py
@@ -22,3 +22,4 @@ Solar_Forecasting_Project/
 └── uploads/
     ├── solar_dataset.csv
     └── prepared_solar_dataset.csv
+```
